@@ -19,7 +19,7 @@ export const ImageGallery = () => {
 	const handleMoveNext = () => setIndex(nextIndex);
 	
 	return (
-		<div>
+		<div id={'gallery'}>
 			<Gallery
 				images={images}
 				onClick={handleClick}
