@@ -10,11 +10,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "animate.css": "^4.1.1",
     "aos": "^3.0.0-beta.6",
     "react": "^18.2.0",
+    "react-confetti": "^6.1.0",
+    "react-confetti-explosion": "^2.1.2",
     "react-dom": "^18.2.0",
     "react-grid-gallery": "^1.0.1-alpha.0",
-    "react-image-lightbox": "^5.1.4"
+    "react-image-lightbox": "^5.1.4",
+    "react-toastify": "^10.0.4"
   },
   "devDependencies": {
     "@types/aos": "^3.0.7",

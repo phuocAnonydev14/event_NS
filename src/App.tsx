@@ -1,12 +1,21 @@
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import './App.css'
-import HeartBeat from "./components/HeartBeat.tsx";
 import ListGirl from "./components/ListGirls.tsx";
 import {ImageGallery} from "./components/ImageGallery";
+import SendLove from "./components/SendLove";
+import 'animate.css';
+import {ToastContainer} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import {WaterOrder} from "./components/WaterOrder";
+import {ServiceOrder} from "./components/Service";
+import HeartBeat from "./components/HeartBeat.tsx";
 
 function App() {
+	const [selectedPerson,setSelectedPerson] = useState('')
+	const [selectedOrder,setSelectedOrder] = useState('')
+	const [selectedService,setSelectedService] = useState('')
 	
 	useEffect(() => {
 		AOS.init({
@@ -18,9 +27,13 @@ function App() {
 	
 	return (
 		<>
-			<div style={{maxWidth:"1200px",margin:'0 auto',paddingTop:"20px"}} data-aos={"fade-left"} >
+			<div className={'app'} style={{maxWidth:"1440px",margin:'0 auto',paddingTop:"20px"}} data-aos={"fade-left"} >
+				<ToastContainer />
 				<ImageGallery />
 				<ListGirl />
+				<SendLove />
+				<WaterOrder selectedOrder={selectedOrder} setSelectedOrder={setSelectedOrder} />
+				<ServiceOrder selectedService={selectedService} setSelectedService={setSelectedService} />
 				<HeartBeat />
 			</div>
 		</>
