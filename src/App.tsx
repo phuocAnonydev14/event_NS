@@ -5,6 +5,7 @@ import './App.css'
 import HeartBeat from "./components/HeartBeat.tsx";
 import ListGirl from "./components/ListGirls.tsx";
 import {ImageGallery} from "./components/ImageGallery";
+import Header from "./components/Header";
 
 function App() {
 	
@@ -18,7 +19,8 @@ function App() {
 	
 	return (
 		<>
-			<div style={{maxWidth:"1200px",margin:'0 auto',paddingTop:"20px"}} data-aos={"fade-left"} >
+			<div style={{maxWidth:"1200px",margin:'0 auto'}} data-aos={"fade-left"} >
+				<Header />
 				<ImageGallery />
 				<ListGirl />
 				<HeartBeat />
