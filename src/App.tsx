@@ -31,14 +31,17 @@ function App() {
 	return (
 		<>
 
-			<div className={'app'} style={{maxWidth:"1440px",margin:'0 auto',paddingTop:"20px",overflowX:"hidden"}} data-aos={"fade-left"} >
+			<div className={'app'} style={{overflowX:"hidden"}} data-aos={"fade-left"} >
 				<ToastContainer />
 				<Header />
+				<div style={{maxWidth:"1440px",margin:'0 auto'}}>
+				
 				<ImageGallery />
 				<ListGirl />
 				<SendLove />
 				<WaterOrder selectedOrder={selectedOrder} setSelectedOrder={setSelectedOrder} />
 				<ServiceOrder selectedService={selectedService} setSelectedService={setSelectedService} />
+				</div>
 				<HeartBeat />
 			</div>
 		</>

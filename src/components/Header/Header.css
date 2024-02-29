@@ -2,13 +2,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Alex+Brush&family=Inter:wght@100..900&display=swap');
 .header-container{
     position: relative;
-    width: 100%;
+    width: 100vw;
     height: 700px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-    background-size: contain;
+    background-size: cover;
     background: url("../../assets/Rectangle 9.png") no-repeat center top;
     gap: 10px;
 }
