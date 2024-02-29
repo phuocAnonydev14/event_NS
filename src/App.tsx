@@ -12,6 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import {WaterOrder} from "./components/WaterOrder";
 import {ServiceOrder} from "./components/Service";
 import HeartBeat from "./components/HeartBeat.tsx";
+import Header from "./components/Header";
 
 
 function App() {
@@ -30,8 +31,9 @@ function App() {
 	return (
 		<>
 
-			<div className={'app'} style={{maxWidth:"1440px",margin:'0 auto',paddingTop:"20px"}} data-aos={"fade-left"} >
+			<div className={'app'} style={{maxWidth:"1440px",margin:'0 auto',paddingTop:"20px",overflowX:"hidden"}} data-aos={"fade-left"} >
 				<ToastContainer />
+				<Header />
 				<ImageGallery />
 				<ListGirl />
 				<SendLove />

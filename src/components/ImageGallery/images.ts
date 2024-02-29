@@ -190,11 +190,5 @@ export const images: CustomImage[] = [
 		height: 320,
 		caption: "A photo by 贝莉儿 NG. (unsplash.com)",
 	},
-	{
-		src: "https://c7.staticflickr.com/9/8824/28868764222_19f3b30773_b.jpg",
-		original: "https://c7.staticflickr.com/9/8824/28868764222_19f3b30773_b.jpg",
-		width: 226,
-		height: 320,
-		caption: "A photo by Matthew Wiebe. (unsplash.com)",
-	},
+
 ];
