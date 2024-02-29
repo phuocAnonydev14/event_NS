@@ -12,7 +12,7 @@ export default function Header() {
       <div className={'header-logo'}>
         <img src={logo} className={'logo-image'} alt={'logo'}/>
       </div>
-      <div style={{display: 'flex', flexDirection: 'column'}}>
+      <div className='content-wrapper' style={{display: 'flex', flexDirection: 'column'}}>
         <div className={'header-content'}>
           <div className={'title'}>
             <span>

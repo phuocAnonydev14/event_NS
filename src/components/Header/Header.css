@@ -116,4 +116,10 @@
         font-size: 10px;
         height: 20px;
     }
+    .content-wrapper{
+        margin-bottom: 20px;
+    }
+    .logo-image{
+        width: 100px;
+    }
 }
