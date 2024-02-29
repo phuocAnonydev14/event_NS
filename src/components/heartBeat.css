@@ -36,6 +36,11 @@ canvas {
     transform-origin: 100% 100%;
 }
 
+.heart-box{
+    color: rgba(255, 189, 211, 1);
+    text-align: center;
+}
+
 @keyframes animate {
     0% {
         transform: scale(1);
