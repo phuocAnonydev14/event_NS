@@ -77,7 +77,7 @@ export default function ListGirl() {
 
 
 const Item = ({isReverse,aos,images}:any) => {
-	return <div data-aos={aos}>
+	return <div data-aos={aos} style={{marginBlock:"50px"}}>
 		<div style={{marginBottom:"20px"}}  className={`box girl-item ${isReverse && 'flex-reverse'}`}>
 			<div className={'girl-item-img'}>
 				<img

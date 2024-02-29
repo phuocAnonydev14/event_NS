@@ -20,6 +20,11 @@
     justify-content: center;
 }
 
+.girl-item-img:hover{
+    animation: img-animation 2s infinite alternate;
+    animation-delay: 0.2s;
+}
+
 .girl-item-img img{
     width: 100%;
     max-width: 260px;
@@ -34,4 +39,27 @@
 }
 .girl-item-info h1{
     margin-bottom: 10px;
+}
+
+@keyframes img-animation {
+    0%{
+        transform: translateX(100px) rotate(60deg);
+
+    }
+    20%{
+        transform: translateX(200px) rotate(120deg);
+
+    }40%{
+        transform: translateX(300px) rotate(180deg);
+
+    }60%{
+        transform: translateX(400px) rotate(220deg);
+
+    }80%{
+        transform: translateX(500px) rotate(260deg);
+
+    }100%{
+        transform: translateX(300px) rotate(360deg);
+
+    }
 }
