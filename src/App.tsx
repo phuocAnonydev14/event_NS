@@ -21,7 +21,7 @@ import { Message } from "./components/MessageFB/Message.tsx";
 function App() {
 	const [selectedOrder, setSelectedOrder] = useState('');
 	const [selectedService, setSelectedService] = useState('');
-	const { getAllDevices, addDevice, addService } = useRealtimeDB();
+	const { addDevice,  } = useRealtimeDB();
 
 	useEffect(() => {
 		AOS.init({
@@ -29,8 +29,6 @@ function App() {
 			delay: 200,
 		});
 		requestPermission();
-		getAllDevices();
-
 	}, [])
 
 	const { VITE_APP_VAPID_KEY } = import.meta.env;
@@ -44,7 +42,6 @@ function App() {
 			});
 			if (deviceId) {
 				addDevice(deviceId);
-				addService({ name: "Water", price: 5000 }, deviceId)
 			}
 		} else if (permission === "denied") {
 			alert("You denied for the notification");

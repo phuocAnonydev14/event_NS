@@ -21,57 +21,45 @@ export const messaging = getMessaging(app);
 export const useRealtimeDB = () => {
     const db = getDatabase(app);
 
-    const getAllDevices = async () => {
-        const deviceRef = ref(db, "/devices");
-        const snapshot = await get(deviceRef);
-        if (snapshot.exists()) {
-            return snapshot.val();
+    const checkDatabase = async (name: "devices" | "services", deviceId: string) => {
+        const dbRef = ref(db, `/${name}`);
+        try {
+            const snapshot = await get(dbRef);
+            if (snapshot.exists()) {
+                const data = snapshot.val();
+                for (const key in data) {
+                    if (data[key]?.id === deviceId) {
+                        return { dbRef, key };
+                    }
+                }
+            }
+            return { dbRef, key: null };
+        } catch (error) {
+            console.error('Error checking database:', error);
+            return { dbRef: dbRef, key: null };
         }
-        return null;
     }
 
     const addDevice = async (deviceId: string) => {
-        const devicesRef = ref(db, '/devices');
-        try {
-            const snapshot = await get(devicesRef);
-            const devices = snapshot.val();
-            let isIdExist = false;
-            for (const deviceKey in devices) {
-                if (devices[deviceKey]?.id === deviceId) {
-                    isIdExist = true;
-                    break;
-                }
-            }
-            if (!isIdExist) {
-                const newDeviceRef = push(devicesRef);
-                set(newDeviceRef, { id: deviceId });
-                console.log(`Device with ID ${deviceId} added successfully`);
-            } else {
-                console.log(`Device with ID ${deviceId} already exists`);
-            }
-        } catch (error) {
-            console.error('Error adding device:', error);
+        const { dbRef, key } = await checkDatabase('devices', deviceId);
+        if (!key) {
+            const newDeviceRef = push(dbRef);
+            set(newDeviceRef, { id: deviceId });
+            console.log(`Device with ID ${deviceId} added successfully`);
+        } else {
+            console.log(`Device with ID ${deviceId} already exists`);
         }
     }
 
     const addService = async (service: ServiceProps, deviceId: string) => {
-        const servicesRef = ref(db, '/services');
         try {
-            let isIdExist: string = '';
-            const snapshot = await get(servicesRef);
-            const services = snapshot.val();
-            for (const serviceKey in services) {
-                if (services[serviceKey]?.id === deviceId) {
-                    isIdExist = serviceKey;
-                    break;
-                }
-            }
-            if (isIdExist.length === 0) {
-                const newServiceRef = push(servicesRef);
-                set(newServiceRef, { id: deviceId, service: service });
-            } else {
-                const serviceRef = ref(db, `/services/${isIdExist}`);
+            const { dbRef, key } = await checkDatabase('services', deviceId);
+            if (key) {
+                const serviceRef = ref(db, `/services/${key}`);
                 set(serviceRef, { id: deviceId, service: service });
+            } else {
+                const newServiceRef = push(dbRef);
+                set(newServiceRef, { id: deviceId, service: service });
             }
             console.log(`Service ${service} added successfully`);
         } catch (error) {
@@ -81,7 +69,6 @@ export const useRealtimeDB = () => {
 
 
     return {
-        getAllDevices,
         addDevice,
         addService
     };
