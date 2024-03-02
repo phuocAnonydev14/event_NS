@@ -20,51 +20,51 @@ const menus = [{
 ]
 const man = [
 	{
-		image:'../../../public/avatar/Nhân.jpg', 
+		image:'/avatar/Nhân.jpg',
 		name: 'Nguyễn Anh Nhân'
 	}, {
-		image:'../../../public/avatar/LXNgoc.JPG', 
+		image:'/avatar/LXNgoc.JPG',
 		name: 'Lê Xuân Ngọc'
 	}, {
-		image:'../../../public/avatar/tien.jpg', 
+		image:'/avatar/tien.jpg',
 		name: 'Nguyễn Duy Tiến'
 	}, {
-		image:'../../../public/avatar/ngoc.jpg', 
+		image:'/avatar/ngoc.jpg',
 		name: 'Phạm Đức Ngọc'
 	}, {
-		image:'../../../public/avatar/CA.PNG', 
+		image:'/avatar/CA.PNG',
 		name: 'Cao Thế Anh'
 	}, {
-		image:'../../../public/avatar/quyet.JPG', 
+		image:'/avatar/quyet.JPG',
 		name: 'Nguyễn Văn Quyết'
 	}, {
-		image:'../../../public/avatar/Dũng.jpg', 
+		image:'/avatar/Dũng.jpg',
 		name: 'Hoàng Ngọc Dũng'
 	}, {
-		image:'../../../public/avatar/hieu.JPG', 
+		image:'/avatar/hieu.JPG',
 		name: 'Phan Anh Hiếu'
 	}, {
-		image:'../../../public/avatar/mduc.HEIC', 
+		image:'/avatar/mduc.HEIC',
 		name: 'Nguyễn Minh Đức'
 	}, {
-		image:'../../../public/avatar/phuoc.JPG', 
+		image:'/avatar/phuoc.JPG',
 		name: 'Hồ Hữu Phước'
 	}, {
-		image:'../../../public/avatar/manhtuan.jpg', 
+		image:'/avatar/manhtuan.jpg',
 		name: 'Nguyễn Mạnh Tuấn'
 	}, {
-		image:'../../../public/avatar/tam.JPG', 
+		image:'/avatar/tam.JPG',
 		name: 'Nguyễn Hữu Tâm'
 	},
 	{
-		image:'../../../public/avatar/tin.JPG', 
+		image:'/avatar/tin.JPG',
 		name: 'Nguyễn Phú Tín'
 	}, {
-		image:'../../../public/avatar/tuananh.jpg', 
+		image:'/avatar/tuananh.jpg',
 		name: 'Nguyễn Tuấn Anh'
 	},
 	{
-		image:'../../../public/avatar/quaan hoang.JPG', 
+		image:'/avatar/quaan hoang.JPG',
 		name: 'Quân Hoàng'
 	}
 ]
