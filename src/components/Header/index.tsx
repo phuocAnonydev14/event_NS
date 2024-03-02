@@ -61,7 +61,7 @@ export default function Header() {
 								<span onClick={() => {
 									localStorage.removeItem('username-8/3-ns')
 									setSignedInName('')
-								}} style={{textDecoration:"underline",cursor:"pointer",color:"#6895D2"}}>Use another username 👰‍♀️</span>
+								}} style={{textDecoration:"underline",cursor:"pointer",color:'gray'}}>Use another username 👰‍♀️</span>
 							</div>
 						}
 					</div>
