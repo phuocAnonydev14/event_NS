@@ -252,7 +252,7 @@ export default function HeartBeat() {
 				vẫn còn nhiều điều bất ngờ ở đằng sau bạn nhé!
 			</h3>
 			<canvas ref={canvasRef} id="pinkboard"></canvas>
-				<h1>From NorthStudio with love</h1>
+				<h1>From NorthStudio with ❤️</h1>
 		</div>
 	</div>
 }
