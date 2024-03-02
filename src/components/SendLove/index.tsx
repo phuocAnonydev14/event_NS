@@ -62,24 +62,31 @@ const males = [
 
 export default function SendLove() {
 	const [selectedName, setSelectedName] = useState('')
-	
+	const [isCurrentSelected, setIsCurrentSelected] = useState(false)
 	
 	return <div className={'sl-wrapper'}>
 		<h1>Trao gửi yêu thương</h1>
 		<p>Bạn muốn nhận lời chúc từ ai nhỉ?</p>
 		<p>Hãy “ấn” vào người mà bạn muốn nhận lời chúc nhé</p>
 		<div className={'sl-user-boxes'}>{males.map((item, index) => {
-			return <div onClick={() => setTimeout(() => setSelectedName(item.name), 5500)} className={'sl-user-box'}>
+			return <div onClick={() => {
+				setIsCurrentSelected(true)
+				setTimeout(() => {
+					setIsCurrentSelected(false)
+					setSelectedName(item.name)
+				}, 5500)
+			}} className={'sl-user-box'}>
 				<UserBox
+					isCurrentSelected={isCurrentSelected}
 					index={index}
-				key={index} name={item.name} age={item.age} image={item.image}/></div>
+					key={index} name={item.name} age={item.age} image={item.image}/></div>
 		})}</div>
 		
 		{selectedName && <VidLuvModal open={!!selectedName} onClose={() => setSelectedName('')} name={selectedName}/>}
 	</div>
 }
 
-const UserBox = ({name, image,index}: any) => {
+const UserBox = ({name, image, index, isCurrentSelected}: any) => {
 	const [isSelected, setIsSelected] = useState(false)
 	const [isClicked, setIsClicked] = useState(false)
 	const [contdownSuccess, setCountdownSuccess] = useState(false)
@@ -98,6 +105,7 @@ const UserBox = ({name, image,index}: any) => {
 			:
 			<img style={{cursor: "pointer"}}
 					 onClick={() => {
+						 if (isCurrentSelected) return
 						 setIsClicked(true)
 						 setIsSelected(true)
 						 setTimeout(() => {
@@ -106,7 +114,7 @@ const UserBox = ({name, image,index}: any) => {
 							 toast(`Chúc mừng bạn đã nhận được lời chúc từ ${name} iu dấu 🥰!`, {type: "success"})
 						 }, 2998)
 					 }}
-					 src={'/celeb/'+celebList[index]}
+					 src={'/celeb/' + celebList[index]}
 					 alt=""
 			/>
 		}
