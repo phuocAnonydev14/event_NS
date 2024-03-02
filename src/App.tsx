@@ -14,13 +14,14 @@ import { ServiceOrder } from "./components/Service";
 import HeartBeat from "./components/HeartBeat.tsx";
 import Header from "./components/Header";
 import { getToken, onMessage } from "firebase/messaging";
-import { messaging } from "./utils/firebase.utils.ts";
+import { messaging, useRealtimeDB } from "./utils/firebase.utils.ts";
 import { Message } from "./components/MessageFB/Message.tsx";
 
 
 function App() {
-	const [selectedOrder, setSelectedOrder] = useState('')
-	const [selectedService, setSelectedService] = useState('')
+	const [selectedOrder, setSelectedOrder] = useState('');
+	const [selectedService, setSelectedService] = useState('');
+	const { getAllDevices, addDevice } = useRealtimeDB();
 
 	useEffect(() => {
 		AOS.init({
@@ -28,6 +29,7 @@ function App() {
 			delay: 200,
 		});
 		requestPermission();
+		getAllDevices();
 	}, [])
 
 	const { VITE_APP_VAPID_KEY } = import.meta.env;
@@ -39,8 +41,9 @@ function App() {
 			const token = await getToken(messaging, {
 				vapidKey: VITE_APP_VAPID_KEY,
 			});
-
-			console.log("Token generated : ", token);
+			if (token) {
+				addDevice(token);
+			}
 		} else if (permission === "denied") {
 			alert("You denied for the notification");
 		}
@@ -48,7 +51,7 @@ function App() {
 
 	onMessage(messaging, (payload) => {
 		toast(<Message notification={payload.notification} />);
-	  });
+	});
 
 
 	return (
@@ -58,7 +61,6 @@ function App() {
 				<ToastContainer />
 				<Header />
 				<div style={{ maxWidth: "1440px", margin: '0 auto' }}>
-
 					<ImageGallery />
 					<ListGirl />
 					<SendLove />

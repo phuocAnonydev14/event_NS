@@ -1,5 +1,7 @@
 import { initializeApp } from "firebase/app";
+import { child, get, getDatabase, onValue, orderByChild, push, ref, set } from "firebase/database";
 import { getMessaging } from "firebase/messaging";
+import { useEffect, useState } from "react";
 
 const firebaseConfig = {
     apiKey: import.meta.env.VITE_APP_API_KEY,
@@ -9,8 +11,63 @@ const firebaseConfig = {
     messagingSenderId: import.meta.env.VITE_APP_MESSAGING_SENDER_ID,
     appId: import.meta.env.VITE_APP_APP_ID,
     measurementId: import.meta.env.VITE_APP_MEASUREMENT_ID,
+    databaseURL: import.meta.env.VITE_APP_DATABASE_URL
 };
 
 const app = initializeApp(firebaseConfig);
 
-export const messaging = getMessaging(app)
+export const messaging = getMessaging(app);
+
+export const useRealtimeDB = () => {
+    const db = getDatabase(app);
+
+    const getAllDevices = async () => {
+        const deviceRef = ref(db, "/devices");
+        const snapshot = await get(deviceRef);
+        if (snapshot.exists()) {
+            return snapshot.val();
+        }
+        return null;
+    }
+
+    const addDevice = async (deviceId: string) => {
+        const devicesRef = ref(db, '/devices');
+        try {
+            const snapshot = await get(devicesRef);
+            const devices = snapshot.val();
+            let isIdExist = false;
+            for (const deviceKey in devices) {
+                if (devices[deviceKey]?.id === deviceId) {
+                    isIdExist = true;
+                    break;
+                }
+            }
+            if (!isIdExist) {
+                const newDeviceRef = push(devicesRef);
+                set(newDeviceRef, { id: deviceId });
+                console.log(`Device with ID ${deviceId} added successfully`);
+            } else {
+                console.log(`Device with ID ${deviceId} already exists`);
+            }
+        } catch (error) {
+            console.error('Error adding device:', error);
+        }
+    }
+
+    const addService = async (service: string) => {
+        const servicesRef = ref(db, '/services');
+        try {
+            const newServiceRef = push(servicesRef);
+            set(newServiceRef, { service });
+            console.log(`Service ${service} added successfully`);
+        } catch (error) {
+            console.error('Error adding service:', error);
+        }
+    }
+
+
+    return {
+        getAllDevices,
+        addDevice
+    };
+}
