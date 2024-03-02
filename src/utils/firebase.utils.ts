@@ -54,11 +54,25 @@ export const useRealtimeDB = () => {
         }
     }
 
-    const addService = async (service: string, deviceId: string) => {
+    const addService = async (service: JSON, deviceId: string) => {
         const servicesRef = ref(db, '/services');
         try {
-            const newServiceRef = push(servicesRef);
-            set(newServiceRef, { service });
+            let isIdExist: string = '';
+            const snapshot = await get(servicesRef);
+            const services = snapshot.val();
+            for (const serviceKey in services) {
+                if (services[serviceKey]?.id === deviceId) {
+                    isIdExist = serviceKey;
+                    break;
+                }
+            }
+            if (!isIdExist) {
+                const newServiceRef = push(servicesRef);
+                set(newServiceRef, { id: deviceId, service: service });
+            } else {
+                const serviceRef = ref(db, `/services/${isIdExist}`);
+                set(serviceRef, { id: deviceId, service: service });
+            }
             console.log(`Service ${service} added successfully`);
         } catch (error) {
             console.error('Error adding service:', error);
@@ -68,6 +82,7 @@ export const useRealtimeDB = () => {
 
     return {
         getAllDevices,
-        addDevice
+        addDevice,
+        addService
     };
 }
