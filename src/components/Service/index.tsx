@@ -57,7 +57,7 @@ const man = [
 		name: 'Nguyễn Hữu Tâm'
 	},
 	{
-		image:'../../../public/avatar/tien.jpg', 
+		image:'../../../public/avatar/tin.JPG', 
 		name: 'Nguyễn Phú Tín'
 	}, {
 		image:'../../../public/avatar/tuananh.jpg', 
