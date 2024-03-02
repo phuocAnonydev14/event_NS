@@ -21,7 +21,7 @@ import { Message } from "./components/MessageFB/Message.tsx";
 function App() {
 	const [selectedOrder, setSelectedOrder] = useState('');
 	const [selectedService, setSelectedService] = useState('');
-	const { addDevice,  } = useRealtimeDB();
+	const { addDevice, addService } = useRealtimeDB();
 
 	useEffect(() => {
 		AOS.init({

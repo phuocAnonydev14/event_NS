@@ -1,7 +1,6 @@
 import { initializeApp } from "firebase/app";
-import { child, get, getDatabase, onValue, orderByChild, push, ref, set } from "firebase/database";
+import { get, getDatabase, push, ref, set } from "firebase/database";
 import { getMessaging } from "firebase/messaging";
-import { useEffect, useState } from "react";
 
 const firebaseConfig = {
     apiKey: import.meta.env.VITE_APP_API_KEY,
@@ -56,17 +55,16 @@ export const useRealtimeDB = () => {
             const { dbRef, key } = await checkDatabase('services', deviceId);
             if (key) {
                 const serviceRef = ref(db, `/services/${key}`);
-                set(serviceRef, { id: deviceId, service: service });
+                set(serviceRef, { id: deviceId, value: service });
             } else {
                 const newServiceRef = push(dbRef);
-                set(newServiceRef, { id: deviceId, service: service });
+                set(newServiceRef, { id: deviceId, value: service });
             }
             console.log(`Service ${service} added successfully`);
         } catch (error) {
             console.error('Error adding service:', error);
         }
     }
-
 
     return {
         addDevice,
