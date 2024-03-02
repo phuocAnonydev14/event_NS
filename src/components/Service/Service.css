@@ -204,3 +204,19 @@
     background-color: #171717;
     transform: rotateY(180deg);
 }
+.avatar{
+    transition: all 0.2s;
+}
+.avatar:hover{
+    cursor: pointer;
+    border: 3px solid greenyellow;
+}
+.man-select{
+    border: 3px solid greenyellow;
+}
+.ant-modal-content{
+    width: 700px;
+}
+.ant-modal-content{
+    padding: 0;
+}
