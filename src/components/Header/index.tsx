@@ -18,7 +18,7 @@ export default function Header() {
   }
 
   const testNoti = async () => {
-    sendNotification('aloo', 'Khai Hoan');
+    sendNotification(`script.py`, `print('Hello world~~~')`);
   }
 
   const handleSubmitUsername = () => {
