@@ -91,7 +91,7 @@ const Item = ({isReverse,aos,images}:any) => {
 			</div>
 		</div>
 		<div style={{display:"flex",gap:"30px",direction:isReverse ? "rtl" : 'ltr',marginInline:"50px"}}>
-			{images.map(item => <img style={{width:"160px",borderRadius:"8px",objectFit:"cover"}} src={item} alt=""/>)}
+			{images.map((item,index) => <img key={index} style={{width:"160px",borderRadius:"8px",objectFit:"cover"}} src={item} alt=""/>)}
 		</div>
 	</div>
 }

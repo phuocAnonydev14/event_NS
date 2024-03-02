@@ -45,7 +45,7 @@ export const WaterOrder = ({setSelectedOrder,selectedOrder}:any) => {
 		<h1 style={{marginBottom:"40px"}}>THE COFFEE HOUSE</h1>
 		
 		<div style={{display:"flex",flexWrap:"wrap",justifyContent:"center",gap:50}}>
-			{menus.map(({name,image},index) => <div onClick={() => {
+			{menus.map(({name,image},index) => <div key={index} onClick={() => {
 				setSelectedOrder(name)
 			}} className={`card ${selectedOrder === name && 'card-selected'}`} style={{width:"20%"}}>
 				<img style={{width:"100%",height:"100%",objectFit:"cover",borderRadius:"8px"}} src={image} alt=""/>
