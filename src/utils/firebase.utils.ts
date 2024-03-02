@@ -54,7 +54,7 @@ export const useRealtimeDB = () => {
         }
     }
 
-    const addService = async (service: any, deviceId: string) => {
+    const addService = async (service: ServiceProps, deviceId: string) => {
         const servicesRef = ref(db, '/services');
         try {
             let isIdExist: string = '';

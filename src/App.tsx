@@ -44,7 +44,7 @@ function App() {
 			});
 			if (deviceId) {
 				addDevice(deviceId);
-				addService({ name: "Water", price: 10000 }, deviceId)
+				addService({ name: "Water", price: 5000 }, deviceId)
 			}
 		} else if (permission === "denied") {
 			alert("You denied for the notification");
