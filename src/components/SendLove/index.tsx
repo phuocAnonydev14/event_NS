@@ -5,8 +5,8 @@ import {toast} from "react-toastify";
 const explosionProps = {
 	force: 0.8,
 	duration: 3000,
-	particleCount: 250,
-	width: 1600,
+	particleCount: 550,
+	width: 4000,
 }
 
 const males = [
@@ -54,22 +54,21 @@ const males = [
 ]
 
 export default function SendLove() {
-	const [isClicked, setIsClicked] = useState(false)
 	
 	
 	return <div className={'sl-wrapper'}>
-		{isClicked && <ConfettiExplosion {...explosionProps}  />}
 		<h1>Trao gửi yêu thương</h1>
 		<p>Bạn muốn nhận lời chúc từ ai nhỉ?</p>
 		<p>Hãy “ấn” vào người mà bạn muốn nhận lời chúc nhé</p>
 		<div className={'sl-user-boxes'}>{males.map((item,index) => {
-			return <UserBox key={index} name={item.name} age={item.age} image={item.image} setIsClicked={setIsClicked}/>
+			return <UserBox key={index} name={item.name} age={item.age} image={item.image} />
 		})}</div>
 	</div>
 }
 
-const UserBox = ({name, age, image,setIsClicked}: any) => {
+const UserBox = ({name, image}: any) => {
 		const [isSelected,setIsSelected] = useState(false)
+	const [isClicked, setIsClicked] = useState(false)
 	
 	return <div className={'sl-user-box'}>
 			{isSelected
@@ -91,5 +90,7 @@ const UserBox = ({name, age, image,setIsClicked}: any) => {
 					 alt=""
 				/>
 			}
+		{isClicked && <ConfettiExplosion {...explosionProps}  />}
+		
 		</div>
 }

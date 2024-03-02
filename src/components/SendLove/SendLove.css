@@ -36,8 +36,8 @@
 
 .sl-user-box:hover{
     transform: translateY(-20px) ;
-    transition: all .5s ease;
-    transition-delay: 0.25s;
+    transition: all .125s ease;
+    transition-delay: 0.1s;
 }
 
 .sl-user-box img{
