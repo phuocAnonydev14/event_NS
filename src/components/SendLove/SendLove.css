@@ -4,6 +4,9 @@
     min-width: 100%;
     text-align: center;
     padding: 30px;
+    background-image: url("https://img.freepik.com/free-vector/beautiful-floral-background-with-copy-space_23-2149064297.jpg?w=996&t=st=1709350706~exp=1709351306~hmac=d6fcc0a25b0730c1506805f8ec69c0c003057561f3893a2f5ce79728eaa93704");
+    background-size: cover;
+    background-position: center;
 }
 
 .sl-wrapper h1, .sl-wrapper p{
