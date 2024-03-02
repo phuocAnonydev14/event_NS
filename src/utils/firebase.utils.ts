@@ -54,7 +54,7 @@ export const useRealtimeDB = () => {
         }
     }
 
-    const addService = async (service: string) => {
+    const addService = async (service: string, deviceId: string) => {
         const servicesRef = ref(db, '/services');
         try {
             const newServiceRef = push(servicesRef);
