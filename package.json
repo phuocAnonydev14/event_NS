@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "add": "^2.0.6",
     "animate.css": "^4.1.1",
     "antd": "^5.14.2",
     "aos": "^3.0.0-beta.6",
@@ -18,10 +19,12 @@
     "react": "^18.2.0",
     "react-confetti": "^6.1.0",
     "react-confetti-explosion": "^2.1.2",
+    "react-countdown-circle-timer": "^3.2.1",
     "react-dom": "^18.2.0",
     "react-grid-gallery": "^1.0.1-alpha.0",
     "react-image-lightbox": "^5.1.4",
-    "react-toastify": "^10.0.4"
+    "react-toastify": "^10.0.4",
+    "yarn": "^1.22.21"
   },
   "devDependencies": {
     "@types/aos": "^3.0.7",
