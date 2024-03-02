@@ -30,6 +30,7 @@ function App() {
 		});
 		requestPermission();
 		getAllDevices();
+		
 	}, [])
 
 	const { VITE_APP_VAPID_KEY } = import.meta.env;
@@ -38,11 +39,11 @@ function App() {
 		const permission = await Notification.requestPermission();
 
 		if (permission === "granted") {
-			const token = await getToken(messaging, {
+			const deviceId = await getToken(messaging, {
 				vapidKey: VITE_APP_VAPID_KEY,
 			});
-			if (token) {
-				addDevice(token);
+			if (deviceId) {
+				addDevice(deviceId);
 			}
 		} else if (permission === "denied") {
 			alert("You denied for the notification");
