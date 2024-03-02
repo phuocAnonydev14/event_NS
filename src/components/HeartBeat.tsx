@@ -246,10 +246,13 @@ export default function HeartBeat() {
 	
 	return <div style={{width: "100%vw", height: "100dvh",display:"flex",justifyContent:"center",alignItems:"center",backgroundColor:"#000"}}>
 		<div className="heart-box">
-			<h3>Chúc các bạn có một ngày 8/3 hạnh phúc
-				vẫn còn nhiều điều bất ngờ ở đằng sau bạn nhé!</h3>
-				<h1>From NorthStudio with love</h1>
+			<h3 className={'pinkboard'}>Chúc các bạn có một ngày 8/3 hạnh phúc
+				</h3>
+			<h3>
+				vẫn còn nhiều điều bất ngờ ở đằng sau bạn nhé!
+			</h3>
 			<canvas ref={canvasRef} id="pinkboard"></canvas>
+				<h1>From NorthStudio with love</h1>
 		</div>
 	</div>
 }

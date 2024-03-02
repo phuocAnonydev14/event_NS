@@ -16,7 +16,9 @@ export default function Header() {
 	}
 	
 	const handleSubmitUsername = () => {
+		if(!val) return
 		localStorage.setItem('username-8/3-ns',val)
+		setSignedInName(val)
 		toast('Tên xink như cậu vậy 🥰')
 	}
 	
@@ -48,13 +50,13 @@ export default function Header() {
 					<div style={{marginBottom:"120px",display:"flex",gap:"10px"}}>
 						{!signedInName ?
 						<>	<Input onChange={(e) => setVal(e.target.value)} placeholder={'Xin hỏi username của cậu...'} className={'email-input'}
-										 style={{background: "rgba(199,200,204,0.71)",minWidth:"200px"}}/>
-							{val && <Button onClick={handleSubmitUsername} style={{background:"#DC84F3"}} type={'primary'}>Done</Button>}
+										 style={{background: "rgba(0, 0, 0, 0.5)",minWidth:"200px",borderRadius:"12px"}}/>
+							<Button onClick={handleSubmitUsername} style={{background:"rgba(255, 255, 255, 1)",color:'rgba(23, 23, 23, 1)'}} type={'primary'}>Done</Button>
 						</>
 						:
-							<div style={{color:"#fff"}}>
+							<div style={{color:"#fff",textAlign:"center"}}>
 							<h2 >
-								Hello ladies <span style={{fontFamily:"'Roboto', cursive",fontSize:"35px"}}>{signedInName}</span>
+								Hi lady <span style={{fontFamily:"'Roboto', cursive"}}>{signedInName}</span>
 							</h2>
 								<span onClick={() => {
 									localStorage.removeItem('username-8/3-ns')
@@ -63,9 +65,9 @@ export default function Header() {
 							</div>
 						}
 					</div>
-					<button  className={'header-btn'} onClick={handleScroll}>
-						Lướt xuống nào
-					</button>
+					{/*<button  className={'header-btn'} onClick={handleScroll}>*/}
+					{/*	Lướt xuống nào*/}
+					{/*</button>*/}
 				</div>
 			</div>
 		</div>

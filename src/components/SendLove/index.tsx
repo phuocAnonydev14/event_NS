@@ -7,8 +7,8 @@ import {Modal} from "antd";
 const explosionProps = {
 	force: 0.8,
 	duration: 3000,
-	particleCount: 550,
-	width: 4000,
+	particleCount: 450,
+	width: 3000,
 }
 
 const males = [
@@ -95,7 +95,7 @@ const UserBox = ({name, image}: any) => {
 						setIsSelected(true)
 						setTimeout(() => {
 							setCountdownSuccess(true)
-							setTimeout(() => setIsClicked(false),3000)
+							setTimeout(() => setIsClicked(false),2500)
 							toast(`Chúc mừng bạn đã nhận được lời chúc từ ${name} iu dấu 🥰!`,{type:"success"})
 						},2998)
 					}}

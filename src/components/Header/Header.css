@@ -122,6 +122,10 @@
     }
 }
 
+input{
+    color: #B5C0D0 !important;
+}
+
  ::placeholder{
-    color:#211951 !important
+    color:rgba(199, 200, 204, 0.71) !important
 }

@@ -49,7 +49,7 @@ export const WaterOrder = ({setSelectedOrder,selectedOrder}:any) => {
 				setSelectedOrder(name)
 			}} className={`card ${selectedOrder === name && 'card-selected'}`} style={{width:"20%"}}>
 				<img style={{width:"100%",height:"100%",objectFit:"cover",borderRadius:"8px"}} src={image} alt=""/>
-				<p>{name}</p>
+				<p style={{fontWeight:500,fontSize:'16px',marginTop:"10px"}}>{name}</p>
 			</div>)}
 		</div>
 	</div>
