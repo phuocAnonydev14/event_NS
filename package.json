@@ -10,16 +10,21 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "add": "^2.0.6",
     "animate.css": "^4.1.1",
     "antd": "^5.14.2",
     "aos": "^3.0.0-beta.6",
+    "dotenv": "^16.4.5",
+    "firebase": "^10.8.1",
     "react": "^18.2.0",
     "react-confetti": "^6.1.0",
     "react-confetti-explosion": "^2.1.2",
+    "react-countdown-circle-timer": "^3.2.1",
     "react-dom": "^18.2.0",
     "react-grid-gallery": "^1.0.1-alpha.0",
     "react-image-lightbox": "^5.1.4",
-    "react-toastify": "^10.0.4"
+    "react-toastify": "^10.0.4",
+    "yarn": "^1.22.21"
   },
   "devDependencies": {
     "@types/aos": "^3.0.7",
@@ -28,6 +33,7 @@
     "@typescript-eslint/eslint-plugin": "^7.0.2",
     "@typescript-eslint/parser": "^7.0.2",
     "@vitejs/plugin-react": "^4.2.1",
+    "@vitejs/plugin-react-swc": "^3.6.0",
     "eslint": "^8.56.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",

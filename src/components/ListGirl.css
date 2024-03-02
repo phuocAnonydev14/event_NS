@@ -21,7 +21,7 @@
 }
 
 .girl-item-img:hover{
-    animation: img-animation 2s infinite alternate;
+    /*animation: img-animation 2s infinite alternate;*/
     animation-delay: 0.2s;
 }
 

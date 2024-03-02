@@ -121,3 +121,7 @@
         width: 100px;
     }
 }
+
+ ::placeholder{
+    color:#211951 !important
+}
