@@ -46,7 +46,7 @@ export default function Header() {
               Chúc mừng
             </span>
             <span>
-              ngày quốc tế phụ nữ 8/3
+              Ngày quốc tế phụ nữ 8/3
             </span>
           </div>
         </div>
