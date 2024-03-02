@@ -16,12 +16,13 @@ import Header from "./components/Header";
 import { getToken, onMessage } from "firebase/messaging";
 import { messaging, useRealtimeDB } from "./utils/firebase.utils.ts";
 import { Message } from "./components/MessageFB/Message.tsx";
+import { SmoothScroll } from "./components/SmoothScroll.tsx";
 
 
 function App() {
 	const [selectedOrder, setSelectedOrder] = useState('');
 	const [selectedService, setSelectedService] = useState('');
-	const { addDevice, addService } = useRealtimeDB();
+	const { addDevice } = useRealtimeDB();
 
 	useEffect(() => {
 		AOS.init({
@@ -54,7 +55,7 @@ function App() {
 
 
 	return (
-		<>
+		<SmoothScroll>
 
 			<div className={'app'} style={{ overflowX: "hidden" }} data-aos={"fade-left"} >
 				<ToastContainer />
@@ -68,7 +69,7 @@ function App() {
 				</div>
 				<HeartBeat />
 			</div>
-		</>
+		</SmoothScroll>
 	)
 }
 
