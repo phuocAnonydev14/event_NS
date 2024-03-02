@@ -66,7 +66,7 @@ export const useRealtimeDB = () => {
                     break;
                 }
             }
-            if (!isIdExist) {
+            if (isIdExist.length === 0) {
                 const newServiceRef = push(servicesRef);
                 set(newServiceRef, { id: deviceId, service: service });
             } else {
