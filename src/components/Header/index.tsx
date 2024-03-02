@@ -3,21 +3,22 @@ import logo from '../../assets/logo.png';
 import { Button, Input } from "antd";
 import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
+import { useMessaging } from '../../utils/firebase.utils';
 
 export default function Header() {
 
   const [val, setVal] = useState('')
-  const [signedInName, setSignedInName] = useState<string | null>('')
+  const [signedInName, setSignedInName] = useState<string | null>('');
+  const { sendNotification } = useMessaging();
 
   const handleScroll = () => {
     document.getElementById('gallery')?.scrollIntoView({
       behavior: 'smooth'
     });
   }
-  
-  const testNoti = () => {
-    console.log('test noti');
-    
+
+  const testNoti = async () => {
+    sendNotification('aloo', 'Khai Hoan');
   }
 
   const handleSubmitUsername = () => {

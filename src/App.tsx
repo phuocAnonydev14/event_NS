@@ -23,6 +23,7 @@ function App() {
 	const [selectedOrder, setSelectedOrder] = useState('');
 	const [selectedService, setSelectedService] = useState('');
 	const { addDevice } = useRealtimeDB();
+	const [deviceId, setDeviceId] = useState<string>();
 
 	useEffect(() => {
 		AOS.init({
@@ -32,17 +33,16 @@ function App() {
 		requestPermission();
 	}, [])
 
-	const { VITE_APP_VAPID_KEY } = import.meta.env;
-
 	async function requestPermission() {
 		const permission = await Notification.requestPermission();
 
 		if (permission === "granted") {
 			const deviceId = await getToken(messaging, {
-				vapidKey: VITE_APP_VAPID_KEY,
+				vapidKey: import.meta.env.VITE_APP_VAPID_KEY,
 			});
 			if (deviceId) {
 				addDevice(deviceId);
+				setDeviceId(deviceId);
 			}
 		} else if (permission === "denied") {
 			alert("You denied for the notification");
@@ -50,26 +50,28 @@ function App() {
 	}
 
 	onMessage(messaging, (payload) => {
+		console.log('Message received.', payload);
 		toast(<Message notification={payload.notification} />);
 	});
 
 
 	return (
-		<SmoothScroll>
-
-			<div className={'app'} style={{ overflowX: "hidden" }} data-aos={"fade-left"} >
-				<ToastContainer />
-				<Header />
-				<div style={{ maxWidth: "1440px", margin: '0 auto' }}>
-					<ImageGallery />
-					<ListGirl />
-					<SendLove />
-					<WaterOrder selectedOrder={selectedOrder} setSelectedOrder={setSelectedOrder} />
-					<ServiceOrder selectedService={selectedService} setSelectedService={setSelectedService} />
+		<>
+			<ToastContainer />
+			<SmoothScroll>
+				<div className={'app'} style={{ overflowX: "hidden" }} data-aos={"fade-left"} >
+					<Header/>
+					<div style={{ maxWidth: "1440px", margin: '0 auto' }}>
+						<ImageGallery />
+						<ListGirl />
+						<SendLove />
+						<WaterOrder selectedOrder={selectedOrder} setSelectedOrder={setSelectedOrder} />
+						<ServiceOrder selectedService={selectedService} setSelectedService={setSelectedService} />
+					</div>
+					<HeartBeat />
 				</div>
-				<HeartBeat />
-			</div>
-		</SmoothScroll>
+			</SmoothScroll>
+		</>
 	)
 }
 
