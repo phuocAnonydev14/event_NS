@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { get, getDatabase, push, ref, set } from "firebase/database";
 import { getMessaging } from "firebase/messaging";
+import { getTime } from "./time.utils";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_APP_API_KEY,
@@ -77,25 +78,31 @@ export const useRealtimeDB = () => {
         const data = snapshot.val();
         for (const key in data) {
           if (data[key]?.id === deviceId) {
-            return { dbRef, key };
+            return { dbRef, key, data: data[key] };
           }
         }
       }
-      return { dbRef, key: null };
+      return { dbRef, key: null, data: null };
     } catch (error) {
       console.error('Error checking database:', error);
-      return { dbRef: dbRef, key: null };
+      return { dbRef: dbRef, key: null, data: null };
     }
   }
 
   const addDevice = async (deviceId: string) => {
-    const { dbRef, key } = await checkDatabase('devices', deviceId);
+    const { dbRef, key, data } = await checkDatabase('devices', deviceId);
+    const newDeviceRef = push(dbRef);
     if (!key) {
-      const newDeviceRef = push(dbRef);
-      set(newDeviceRef, { id: deviceId });
+      set(newDeviceRef, {
+        id: deviceId,
+        created_at: getTime(),
+        last_online: getTime()
+      });
       console.log(`Device with ID ${deviceId} added successfully`);
     } else {
-      console.log(`Device with ID ${deviceId} already exists`);
+      const deviceRef = ref(db, `/devices/${key}`);
+      set(deviceRef, { ...data, last_online: getTime() });
+      console.log(`Device with ID ${deviceId} updated successfully`);
     }
   }
 
