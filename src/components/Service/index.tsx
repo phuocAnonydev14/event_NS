@@ -1,70 +1,70 @@
-import { useState } from 'react'
+import {useState} from 'react'
 import './Service.css'
-import { Avatar, Button, Flex, Modal, Select, Tooltip, Typography } from 'antd';
-import { toast } from 'react-toastify';
+import {Avatar, Button, Flex, Modal, Tooltip, Typography} from 'antd';
+import {toast} from "react-toastify";
 
 
 const menus = [{
 	name: 'Tẩm quất',
 	image: '/gift.jpg',
 }, {
-	name: 'Mát xa',
+	name: 'Trai đẹp bê nước tận bạn',
 	image: '/gift.jpg',
 }, {
 	image: '/gift.jpg',
-	name: 'Đưa đi đón về',
+	name: 'Được khen 5 lần',
 }, {
 	image: '/gift.jpg',
-	name: 'Seo phi'
+	name: 'Đăng story nêu cảm nghĩ về bạn'
 }
 ]
 const man = [
 	{
-		image:'/avatar/Nhân.jpg',
+		image: '/avatar/Nhân.jpg',
 		name: 'Nguyễn Anh Nhân'
 	}, {
-		image:'/avatar/LXNgoc.JPG',
+		image: '/avatar/LXNgoc.JPG',
 		name: 'Lê Xuân Ngọc'
 	}, {
-		image:'/avatar/tien.jpg',
+		image: '/avatar/tien.jpg',
 		name: 'Nguyễn Duy Tiến'
 	}, {
-		image:'/avatar/ngoc.jpg',
+		image: '/avatar/ngoc.jpg',
 		name: 'Phạm Đức Ngọc'
 	}, {
-		image:'/avatar/CA.PNG',
+		image: '/avatar/CA.PNG',
 		name: 'Cao Thế Anh'
 	}, {
-		image:'/avatar/quyet.JPG',
+		image: '/avatar/quyet.JPG',
 		name: 'Nguyễn Văn Quyết'
 	}, {
-		image:'/avatar/Dũng.jpg',
+		image: '/avatar/Dũng.jpg',
 		name: 'Hoàng Ngọc Dũng'
 	}, {
-		image:'/avatar/hieu.JPG',
+		image: '/avatar/hieu.JPG',
 		name: 'Phan Anh Hiếu'
 	}, {
-		image:'/avatar/mduc.HEIC',
+		image: '/avatar/mduc.HEIC',
 		name: 'Nguyễn Minh Đức'
 	}, {
-		image:'/avatar/phuoc.JPG',
+		image: '/avatar/phuoc.JPG',
 		name: 'Hồ Hữu Phước'
 	}, {
-		image:'/avatar/manhtuan.jpg',
+		image: '/avatar/manhtuan.jpg',
 		name: 'Nguyễn Mạnh Tuấn'
 	}, {
-		image:'/avatar/tam.JPG',
+		image: '/avatar/tam.JPG',
 		name: 'Nguyễn Hữu Tâm'
 	},
 	{
-		image:'/avatar/tin.JPG',
+		image: '/avatar/tin.JPG',
 		name: 'Nguyễn Phú Tín'
 	}, {
-		image:'/avatar/tuananh.jpg',
+		image: '/avatar/tuananh.jpg',
 		name: 'Nguyễn Tuấn Anh'
 	},
 	{
-		image:'/avatar/quaan hoang.JPG',
+		image: '/avatar/quaan hoang.JPG',
 		name: 'Quân Hoàng'
 	}
 ]
@@ -85,41 +85,48 @@ const man = [
 // 	'Nguyễn Phú Tín',
 // ]
 
-export const ServiceOrder = ({ setSelectedService, selectedService }: any) => {
+export const ServiceOrder = ({setSelectedService, selectedService}: any) => {
 	const [isOpenModal, setIsOpenModal] = useState(false);
 	const handleOpenModal = () => {
 		setIsOpenModal(true);
 	}
-	return <div style={{ textAlign: "center", marginBlock: 100 }}>
+	return <div style={{textAlign: "center", marginBlock: 100}}>
 		<h4>Xin mời lady order nước</h4>
-		<h1 style={{ marginBottom: "40px" }}>NS 6 packs boy service 💪</h1>
-
-		<div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 50, marginBottom: 20 }}>
-			{menus.map(({ name, image }, index) => <div onClick={() => {
+		<h1 style={{marginBottom: "40px"}}>NS 6 packs boy service 💪</h1>
+		
+		<div style={{display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 50, marginBottom: 20}}>
+			{menus.map(({name, image}) => <div onClick={() => {
 				handleOpenModal();
-				setSelectedService({name})
-			}} className={`card ${selectedService === name && 'card-selected'}`} style={{ width: "20%" }}>
-				<img style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "8px" }} src={image} alt="" />
+				const name = localStorage.getItem('username-8/3-ns')
+				if (!name) toast("Nhập tên của bạn trước khi order", {type: "error"})
+				else setSelectedService({name})
+			}} className={`card ${selectedService === name && 'card-selected'}`} style={{width: "20%"}}>
+				<img style={{width: "100%", height: "100%", objectFit: "cover", borderRadius: "8px"}} src={image} alt=""/>
 			</div>)}
 		</div>
-
+		
 		<Modal
 			open={isOpenModal}
 			footer={null}
 			onCancel={() => setIsOpenModal(false)}
 			centered
 			closable={false}
-		// cancelButtonProps={false}
+			// cancelButtonProps={false}
 		>
-			<Typography.Title level={3} style={{ margin: '0 auto', textAlign: 'center' }}>{selectedService.name}</Typography.Title>
-			<div style={{ margin: '20px 0' }}>
-				<p style={{ textAlign: 'center', marginBottom: 20 }}>Bạn muốn ai sẽ thực hiện dịch vụ này</p>
-				<Flex align='center' justify='center' style={{ flexWrap: 'wrap', gap: 20 }}>
+			<Typography.Title level={3}
+												style={{margin: '0 auto', textAlign: 'center'}}>{selectedService.name}</Typography.Title>
+			<div style={{margin: '20px 0'}}>
+				<p style={{textAlign: 'center', marginBottom: 20}}>Bạn muốn ai sẽ thực hiện dịch vụ này</p>
+				<Flex align='center' justify='center' style={{flexWrap: 'wrap', gap: 20}}>
 					{
 						man.map((item) => (
 							<Tooltip title={item.name}>
 								<Avatar
-									onClick={() => setSelectedService(state => ({...state,userAction:item.name}))}
+									onClick={() => {
+										const currentAccount = localStorage.getItem('username-8/3-ns')
+										if (!currentAccount) toast("Nhập tên của bạn trước khi order", {type: "error"})
+										else setSelectedService((state: any) => ({...state, userAction: item.name}))
+									}}
 									className={`avatar ${selectedService.userAction === item.name && 'man-select'}`}
 									style={{
 										width: 100,
@@ -134,7 +141,7 @@ export const ServiceOrder = ({ setSelectedService, selectedService }: any) => {
 					}
 				</Flex>
 			</div>
-			<div style={{ display: 'flex', justifyContent: 'flex-end', gap: 8 }}>
+			<div style={{display: 'flex', justifyContent: 'flex-end', gap: 8}}>
 				<Button
 					onClick={() => setIsOpenModal(false)}
 				>
@@ -144,7 +151,6 @@ export const ServiceOrder = ({ setSelectedService, selectedService }: any) => {
 					type='primary'
 					onClick={() => {
 						setIsOpenModal(false);
-						toast(`${selectedService.userAction} sẽ thực hiện dịch vụ ${selectedService.name} cho bạn`, { type: 'success' });
 					}}
 				>
 					Lưu

@@ -18,6 +18,7 @@ import {messaging, useMessaging, useRealtimeDB} from "./utils/firebase.utils.ts"
 import {Message} from "./components/MessageFB/Message.tsx";
 import {SmoothScroll} from "./components/SmoothScroll.tsx";
 import {useDeviceContext} from "./providers/deviceProvider.tsx";
+import {Button} from "antd";
 
 
 function App() {
@@ -30,29 +31,16 @@ function App() {
 	const {setDeviceId, deviceId} = useDeviceContext()
 	const {sendNotification} = useMessaging();
 	
-	useEffect(() => {
+	
+	const handleAddFirebase = async () => {
 		const name = localStorage.getItem('username-8/3-ns')
-		if (!name) {
-			toast('tên của bạn trước khi order')
+		if (!name || ((!selectedOrder) || (!selectedService.name || !selectedService.userAction))) {
+			toast('Nhâp tên và order của bạn trước khi order')
 			return
 		}
-		addService({order: selectedOrder, name, service: selectedService}, deviceId)
-		
-		
-	}, [selectedOrder, selectedService]);
-	
-	useEffect(() => {
-		if (selectedService.name && selectedService.userAction)
-			sendNotification(`Lady ${name} đã order`, ` ${selectedService.name} ${selectedService.userAction}`);
-		
-	}, [selectedService]);
-	
-	useEffect(() => {
-		if (selectedOrder)
-			sendNotification(`Lady ${name} đã order`, `${selectedOrder}`);
-	}, [selectedOrder]);
-	
-	console.log(selectedService)
+		await addService({order: selectedOrder, name, service: selectedService}, deviceId)
+		await sendNotification(`Lady ${name} đã order`, `${selectedOrder}, ${selectedService.name} từ anh ${selectedService.userAction} 🥰`);
+	}
 	
 	useEffect(() => {
 		AOS.init({
@@ -96,6 +84,10 @@ function App() {
 						<SendLove/>
 						<WaterOrder selectedOrder={selectedOrder} setSelectedOrder={setSelectedOrder}/>
 						<ServiceOrder selectedService={selectedService} setSelectedService={setSelectedService}/>
+					</div>
+					<div style={{display:"flex", justifyContent:"center", alignItems:"center",marginBottom:"50px"}}>
+						<Button className={"btn-submit"} size={"large"} type={"primary"} onClick={() => handleAddFirebase()}>Gửi yêu cầu của bạn</Button>
+						
 					</div>
 					<HeartBeat/>
 				</div>

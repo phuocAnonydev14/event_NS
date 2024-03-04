@@ -1,7 +1,5 @@
 import './WaterOrder.css'
-import {useState} from "react";
-import {useRealtimeDB} from "../../utils/firebase.utils.ts";
-import {useDeviceContext} from "../../providers/deviceProvider.tsx";
+import {toast} from "react-toastify";
 
 
 const menus = [{
@@ -48,7 +46,9 @@ export const WaterOrder = ({setSelectedOrder,selectedOrder}:any) => {
 		
 		<div style={{display:"flex",flexWrap:"wrap",justifyContent:"center",gap:50}}>
 			{menus.map(({name,image},index) => <div key={index} onClick={() => {
-				setSelectedOrder(name)
+				const currentAccount = localStorage.getItem('username-8/3-ns')
+				if (!currentAccount) toast("Nhập tên của bạn trước khi order", {type: "error"})
+				else setSelectedOrder(name)
 			}} className={`card ${selectedOrder === name && 'card-selected'}`} style={{width:"20%"}}>
 				<img style={{width:"100%",height:"100%",objectFit:"cover",borderRadius:"8px"}} src={image} alt=""/>
 				<p style={{fontWeight:500,fontSize:'16px',marginTop:"10px"}}>{name}</p>
