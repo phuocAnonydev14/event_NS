@@ -2,7 +2,7 @@
 
 import {useEffect, useRef, useState} from "react";
 import "./heartBeat.css"
-export default function HeartBeat() {
+export default function Index() {
 	const [firstLoad,setFirstLoad] = useState(false)
 	
 	const animationbeat = () => {

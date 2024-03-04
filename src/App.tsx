@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import './App.css'
-import ListGirl from "./components/ListGirls.tsx";
+import ListGirl from "./components/ListGirl";
 import {ImageGallery} from "./components/ImageGallery";
 
 import SendLove from "./components/SendLove";
@@ -11,7 +11,7 @@ import {ToastContainer, toast} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import {WaterOrder} from "./components/WaterOrder";
 import {ServiceOrder} from "./components/Service";
-import HeartBeat from "./components/HeartBeat.tsx";
+import Index from "./components/HeartBeat";
 import Header from "./components/Header";
 import {getToken, onMessage} from "firebase/messaging";
 import {messaging, useMessaging, useRealtimeDB} from "./utils/firebase.utils.ts";
@@ -89,7 +89,7 @@ function App() {
 						<Button className={"btn-submit"} size={"large"} type={"primary"} onClick={() => handleAddFirebase()}>Gửi yêu cầu của bạn</Button>
 						
 					</div>
-					<HeartBeat/>
+					<Index/>
 				</div>
 			</SmoothScroll>
 		</>
