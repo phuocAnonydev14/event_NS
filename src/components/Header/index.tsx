@@ -3,14 +3,16 @@ import logo from '../../assets/logo.png';
 import { Button, Input } from "antd";
 import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
-import { useMessaging } from '../../utils/firebase.utils';
+import {useMessaging, useRealtimeDB} from '../../utils/firebase.utils';
+import {useDeviceContext} from "../../providers/deviceProvider.tsx";
 
 export default function Header() {
 
   const [val, setVal] = useState('')
   const [signedInName, setSignedInName] = useState<string | null>('');
   const { sendNotification } = useMessaging();
-
+  const {addService} = useRealtimeDB()
+  const {deviceId} = useDeviceContext()
   const handleScroll = () => {
     document.getElementById('gallery')?.scrollIntoView({
       behavior: 'smooth'
@@ -26,6 +28,7 @@ export default function Header() {
     if (!val) return
     localStorage.setItem('username-8/3-ns', val)
     setSignedInName(val)
+    addService({name: val},deviceId)
     toast('Tên xink như cậu vậy 🥰')
   }
 

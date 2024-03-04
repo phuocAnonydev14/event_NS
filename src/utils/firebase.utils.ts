@@ -71,12 +71,13 @@ export const useRealtimeDB = () => {
   const db = getDatabase(app);
 
   const checkDatabase = async (name: "devices" | "services", deviceId: string) => {
-    const dbRef = ref(db, `/${name}`);
+     const dbRef = ref(db, `/${name}`);
     try {
       const snapshot = await get(dbRef);
       if (snapshot.exists()) {
         const data = snapshot.val();
         for (const key in data) {
+        console.log(data[key])
           if (data[key]?.id === deviceId) {
             return { dbRef, key, data: data[key] };
           }
@@ -111,7 +112,7 @@ export const useRealtimeDB = () => {
       const { dbRef, key } = await checkDatabase('services', deviceId);
       if (key) {
         const serviceRef = ref(db, `/services/${key}`);
-        set(serviceRef, { id: deviceId, value: service });
+        set(serviceRef, { id: deviceId, value:service });
       } else {
         const newServiceRef = push(dbRef);
         set(newServiceRef, { id: deviceId, value: service });
@@ -121,9 +122,21 @@ export const useRealtimeDB = () => {
       console.error('Error adding service:', error);
     }
   }
+  
+  const getAllService  = async () => {
+    const dbRef = ref(db, `/services`);
+    const snapshot = await get(dbRef);
+    if (snapshot.exists()) {
+      const data = snapshot.val();
+      console.log({data})
+      return data
+    }
+    return []
+  }
 
   return {
     addDevice,
-    addService
+    addService,
+    getAllService
   };
 }
