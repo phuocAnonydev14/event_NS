@@ -91,15 +91,18 @@ export const ServiceOrder = ({setSelectedService, selectedService}: any) => {
 		setIsOpenModal(true);
 	}
 	return <div style={{textAlign: "center", marginBlock: 100}}>
-		<h4>Xin mời lady order nước</h4>
+		<h4>Xin mời lady order dịch vụ</h4>
 		<h1 style={{marginBottom: "40px"}}>NS 6 packs boy service 💪</h1>
 		
 		<div style={{display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 50, marginBottom: 20}}>
 			{menus.map(({name, image}) => <div onClick={() => {
-				handleOpenModal();
 				const name = localStorage.getItem('username-8/3-ns')
-				if (!name) toast("Nhập tên của bạn trước khi order", {type: "error"})
-				else setSelectedService({name})
+				if (!name) {
+					toast("Nhập tên của bạn trước khi order", {type: "error"})
+					return
+				}
+				handleOpenModal();
+				setSelectedService({name})
 			}} className={`card ${selectedService === name && 'card-selected'}`} style={{width: "20%"}}>
 				<img style={{width: "100%", height: "100%", objectFit: "cover", borderRadius: "8px"}} src={image} alt=""/>
 			</div>)}
