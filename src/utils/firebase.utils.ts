@@ -14,7 +14,7 @@ const firebaseConfig = {
 	databaseURL: import.meta.env.VITE_APP_DATABASE_URL
 };
 
-const app = initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig)
 
 export const messaging = getMessaging(app);
 
@@ -98,6 +98,15 @@ export const useRealtimeDB = () => {
 			return {dbRef: dbRef, key: null, data: null};
 		}
 	}
+
+	const updateDevice = async (deviceId: string, username:string) => {
+		const {key, data} = await checkDatabase('devices', deviceId);
+		if (key) {
+			const deviceRef = ref(db, `/devices/${key}`);
+			set(deviceRef, {...data, username});
+			console.log(`Device with ID ${deviceId} updated successfully`);
+		}
+	}
 	
 	const addDevice = async (deviceId: string) => {
 		const {dbRef, key, data} = await checkDatabase('devices', deviceId);
@@ -145,6 +154,8 @@ export const useRealtimeDB = () => {
 	return {
 		addDevice,
 		addService,
-		getAllService
+		getAllService,
+		updateDevice,
+		checkDatabase
 	};
 }

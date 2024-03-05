@@ -64,7 +64,11 @@ const man = [
 	{
 		image: '/avatar/quaan hoang.JPG',
 		name: 'Quân Hoàng'
-	}
+	},
+	{
+		image: '/avatar/duc-be.jpg',
+		name: 'Nguyễn Văn Đức'
+	},
 ]
 
 export default function SendLove() {

@@ -10,21 +10,30 @@ export default function Header() {
 
   const [val, setVal] = useState('')
   const [signedInName, setSignedInName] = useState<string | null>('');
-  const {addService} = useRealtimeDB()
+  const {addService, updateDevice, checkDatabase} = useRealtimeDB()
   const {deviceId} = useDeviceContext()
   
   const handleSubmitUsername = () => {
     if (!val) return
     localStorage.setItem('username-8/3-ns', val)
     setSignedInName(val)
+    updateDevice(deviceId, val)
     addService({name: val},deviceId)
     toast('Tên xink như cậu vậy 🥰')
   }
 
   useEffect(() => {
-    const currentUsername = localStorage.getItem('username-8/3-ns')
-    setSignedInName(currentUsername)
-  }, []);
+    checkDatabase('devices', deviceId).then(({data}) => {
+      if (data.username) {
+        console.log('data', data);
+        setSignedInName(data.username)
+      }else{
+        console.log('data2');
+        const currentUsername = localStorage.getItem('username-8/3-ns');
+        setSignedInName(currentUsername);
+      }
+    })
+  }, [deviceId]);
 
   return (
     <div className={'header-container'}>
@@ -35,22 +44,23 @@ export default function Header() {
         <div className={'header-content'}>
           <div className={'title'}>
             <span>
-              Chúc mừng
+              {"Chúc mừng"}
             </span>
             <span>
-              Ngày quốc tế phụ nữ 8/3
+              {"Ngày quốc tế phụ nữ 8/3"}
             </span>
           </div>
         </div>
         <div style={{ display: "flex", flexDirection: 'column', alignItems: 'center' }}>
           <div className={'des'}>
-            Chúc cho các chị em nhà NorthStudio....
+            {"Chúc cho các chị em nhà NorthStudio...."}
           </div>
           <div style={{ marginBottom: "120px", display: "flex", gap: "10px" }}>
             {!signedInName ?
-              <>	<Input onChange={(e) => setVal(e.target.value)} placeholder={'Xin hỏi username của cậu...'} className={'email-input'}
+              <>	
+              <Input onChange={(e) => setVal(e.target.value)} placeholder={'Xin hỏi username của cậu...'} className={'email-input'}
                 style={{ background: "rgba(0, 0, 0, 0.5)", minWidth: "200px", borderRadius: "12px" }} />
-                <Button onClick={handleSubmitUsername} style={{ background: "rgba(255, 255, 255, 1)", color: 'rgba(23, 23, 23, 1)' }} type={'primary'}>Done</Button>
+                <Button onClick={handleSubmitUsername} style={{ background: "rgba(255, 255, 255, 1)", color: 'rgba(23, 23, 23, 1)' }} type={'primary'}>{"Done"}</Button>
               </>
               :
               <div style={{ color: "#fff", textAlign: "center" }}>
@@ -60,13 +70,10 @@ export default function Header() {
                 <span onClick={() => {
                   localStorage.removeItem('username-8/3-ns')
                   setSignedInName('')
-                }} style={{ textDecoration: "underline", cursor: "pointer", color: 'gray' }}>Use another username 👰‍♀️</span>
+                }} style={{ textDecoration: "underline", cursor: "pointer", color: 'gray' }}>{"Use another username 👰‍♀️"}</span>
               </div>
             }
           </div>
-          {/*<button  className={'header-btn'} onClick={handleScroll}>*/}
-          {/*	Lướt xuống nào*/}
-          {/*</button>*/}
         </div>
       </div>
     </div>
