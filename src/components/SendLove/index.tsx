@@ -56,6 +56,7 @@ const man = [
   {
     image: "/avatar/CA.PNG",
     name: "Cao Thế Anh",
+    vid: "/vid_love/Cao Thế Anh.MOV",
   },
   {
     image: "/avatar/quyet.JPG",
