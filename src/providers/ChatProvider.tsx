@@ -11,8 +11,9 @@ const ChatContext = createContext<any>({})
 export default function ChatProvider({children}:PropsWithChildren) {
 	
 	const [chatList,setChatList] = useState<Chat[]>([])
+	const [amountUnread,setAmountUnread] = useState(0)
 	
-	return <ChatContext.Provider  value={{chatList,setChatList}}>
+	return <ChatContext.Provider  value={{chatList,setChatList,amountUnread,setAmountUnread}}>
 		{children}
 	</ChatContext.Provider>
 }

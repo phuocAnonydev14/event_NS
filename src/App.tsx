@@ -32,7 +32,7 @@ function App() {
 	const {addDevice, addService} = useRealtimeDB();
 	const {setDeviceId, deviceId} = useDeviceContext()
 	const {sendNotification} = useMessaging();
-	const {chatList,setChatList} = useChatContext()
+	const {setChatList, setAmountUnread} = useChatContext()
 	
 	const handleAddFirebase = async () => {
 		const name = localStorage.getItem('username-8/3-ns')
@@ -86,12 +86,17 @@ function App() {
 			return
 		}
 		console.log({setChatList});
-			setChatList((prev:any) => ([...prev, {name:payload.data['gcm.notification.name'],content:payload.data['gcm.notification.content'], time: Date.now()}]))
+		setChatList((prev: any) => ([...prev, {
+			name: payload.data['gcm.notification.name'],
+			content: payload.data['gcm.notification.content'],
+			time: Date.now()
+		}]))
+		setAmountUnread((prev:any) => prev + 1)
 	});
 	
 	
 	return (
-		<div style={{position:"relative"}}>
+		<div style={{position: "relative"}}>
 			<ToastContainer/>
 			<SmoothScroll>
 				<div className={'app'} style={{overflowX: "hidden"}} data-aos={"fade-left"}>

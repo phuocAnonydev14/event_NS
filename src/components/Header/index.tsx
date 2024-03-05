@@ -3,7 +3,7 @@ import logo from '../../assets/logo.png';
 import { Button, Input } from "antd";
 import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
-import {useMessaging, useRealtimeDB} from '../../utils/firebase.utils';
+import {useRealtimeDB} from '../../utils/firebase.utils';
 import {useDeviceContext} from "../../providers/DeviceProvider.tsx";
 
 export default function Header() {
@@ -12,11 +12,6 @@ export default function Header() {
   const [signedInName, setSignedInName] = useState<string | null>('');
   const {addService} = useRealtimeDB()
   const {deviceId} = useDeviceContext()
-  const handleScroll = () => {
-    document.getElementById('gallery')?.scrollIntoView({
-      behavior: 'smooth'
-    });
-  }
   
   const handleSubmitUsername = () => {
     if (!val) return
