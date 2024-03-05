@@ -22,8 +22,8 @@ export default function Header() {
   }
 
   useEffect(() => {
-    checkDatabase('devices', deviceId).then(({data}) => {
-      if (data.username) {
+    checkDatabase({name:'devices', deviceId}).then(({data}) => {
+      if (data?.username) {
         setUserName(data.username)
       }else{
         const currentUsername = localStorage.getItem('username-8/3-ns');

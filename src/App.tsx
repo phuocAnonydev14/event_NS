@@ -29,7 +29,7 @@ function App() {
 		userAction: '',
 		name: ''
 	});
-	const {addDevice, addService} = useRealtimeDB();
+	const {addDevice, addService,getRating} = useRealtimeDB();
 	const {setDeviceId, deviceId} = useDeviceContext()
 	const {sendNotification} = useMessaging();
 	const {setChatList, setAmountUnread} = useChatContext()
@@ -54,7 +54,10 @@ function App() {
 			delay: 200,
 		});
 		requestPermission();
-	}, [])
+		getRating(deviceId,"test").then((res) => {
+			console.log(res);
+		})
+	}, [deviceId])
 	
 	async function requestPermission() {
 		const permission = await Notification.requestPermission();
