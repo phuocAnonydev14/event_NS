@@ -4,7 +4,7 @@ import { Button, Input } from "antd";
 import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 import {useMessaging, useRealtimeDB} from '../../utils/firebase.utils';
-import {useDeviceContext} from "../../providers/deviceProvider.tsx";
+import {useDeviceContext} from "../../providers/DeviceProvider.tsx";
 
 export default function Header() {
 

@@ -1,0 +1,31 @@
+.chatBox{
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.chatContent{
+    height: 330px;
+    overflow: auto;
+}
+
+.chatItem{
+    padding: 10px;
+}
+
+.chatFooter{
+    padding-inline: 5px;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.chatBox input{
+    color: #171717 !important ;
+}
+
+.right-dir{
+    direction: rtl;
+}

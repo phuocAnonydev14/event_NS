@@ -17,8 +17,10 @@ import {getToken, onMessage} from "firebase/messaging";
 import {messaging, useMessaging, useRealtimeDB} from "./utils/firebase.utils.ts";
 import {Message} from "./components/MessageFB/Message.tsx";
 import {SmoothScroll} from "./components/SmoothScroll.tsx";
-import {useDeviceContext} from "./providers/deviceProvider.tsx";
-import {Button} from "antd";
+import {useDeviceContext} from "./providers/DeviceProvider.tsx";
+import {Button, Modal} from "antd";
+import {useChatContext} from "./providers/ChatProvider.tsx";
+import ChatBox from "./components/ChatBox";
 
 
 function App() {
@@ -30,7 +32,7 @@ function App() {
 	const {addDevice, addService} = useRealtimeDB();
 	const {setDeviceId, deviceId} = useDeviceContext()
 	const {sendNotification} = useMessaging();
-	
+	const {chatList,setChatList} = useChatContext()
 	
 	const handleAddFirebase = async () => {
 		const name = localStorage.getItem('username-8/3-ns')
@@ -39,7 +41,11 @@ function App() {
 			return
 		}
 		await addService({order: selectedOrder, name, service: selectedService}, deviceId)
-		await sendNotification(`Lady ${name} đã order`, `${selectedOrder}, ${selectedService.name} từ anh ${selectedService.userAction} 🥰`);
+		await sendNotification({
+			type: "noti",
+			body: `Lady ${name} đã order`,
+			title: `${selectedOrder}, ${selectedService.name} từ anh ${selectedService.userAction} 🥰`
+		});
 	}
 	
 	useEffect(() => {
@@ -62,18 +68,30 @@ function App() {
 				setDeviceId(deviceId);
 			}
 		} else if (permission === "denied") {
+			Modal.warning({
+				title: 'Hãy bật thông báo để có trải nghiệm tốt nhất',
+				content: <>
+					<img src="/allow-notification.png" alt=""/>
+				</>
+			})
 			alert("You denied for the notification");
 		}
 	}
 	
-	onMessage(messaging, (payload) => {
-		console.log('Message received.', payload);
-		toast(<Message notification={payload.notification}/>);
+	onMessage(messaging, (payload: any) => {
+		console.log({payload})
+		if (!(payload.data['gcm.notification.type'] === "chat")) {
+			console.log('Message received.', payload);
+			toast(<Message notification={payload.notification}/>);
+			return
+		}
+		console.log({setChatList});
+			setChatList((prev:any) => ([...prev, {name:payload.data['gcm.notification.name'],content:payload.data['gcm.notification.content'], time: Date.now()}]))
 	});
 	
 	
 	return (
-		<>
+		<div style={{position:"relative"}}>
 			<ToastContainer/>
 			<SmoothScroll>
 				<div className={'app'} style={{overflowX: "hidden"}} data-aos={"fade-left"}>
@@ -85,14 +103,16 @@ function App() {
 						<WaterOrder selectedOrder={selectedOrder} setSelectedOrder={setSelectedOrder}/>
 						<ServiceOrder selectedService={selectedService} setSelectedService={setSelectedService}/>
 					</div>
-					<div style={{display:"flex", justifyContent:"center", alignItems:"center",marginBottom:"50px"}}>
-						<Button className={"btn-submit"} size={"large"} type={"primary"} onClick={() => handleAddFirebase()}>Gửi yêu cầu của bạn</Button>
-						
+					<div style={{display: "flex", justifyContent: "center", alignItems: "center", marginBottom: "50px"}}>
+						<Button className={"btn-submit"} size={"large"} type={"primary"} onClick={() => handleAddFirebase()}>Gửi yêu
+							cầu của bạn</Button>
+					
 					</div>
 					<Index/>
 				</div>
 			</SmoothScroll>
-		</>
+			<ChatBox/>
+		</div>
 	)
 }
 
