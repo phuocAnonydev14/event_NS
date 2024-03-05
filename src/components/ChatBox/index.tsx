@@ -43,7 +43,7 @@ export default function ChatBox() {
 	useEffect(() => {
 		const name = localStorage.getItem('username-8/3-ns')
 		setCurrentAccount(name)
-	}, [deviceId]);
+	}, [deviceId,chatList]);
 	
 	useEffect(() => {
 		const scrollToBottom = () => {
