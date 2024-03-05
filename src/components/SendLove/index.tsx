@@ -96,7 +96,9 @@ const UserBox = ({name, image, index, isCurrentSelected}: any) => {
 			(
 				contdownSuccess ?
 					<img
-						className={'animate__animated animate__rubberBand'}
+						// className={'animate__animated animate__rubberBand'}
+						 className={'animate__animated animate__rubberBand animate__wobble'}
+						
 						src={image}
 						alt=""/>
 					:
