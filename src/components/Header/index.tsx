@@ -10,7 +10,6 @@ export default function Header() {
 
   const [val, setVal] = useState('')
   const [signedInName, setSignedInName] = useState<string | null>('');
-  const { sendNotification } = useMessaging();
   const {addService} = useRealtimeDB()
   const {deviceId} = useDeviceContext()
   const handleScroll = () => {
@@ -18,13 +17,8 @@ export default function Header() {
       behavior: 'smooth'
     });
   }
-
-  const testNoti = async () => {
-    sendNotification(`script.py`, `print('Hello world~~~')`);
-  }
-
+  
   const handleSubmitUsername = () => {
-    testNoti()
     if (!val) return
     localStorage.setItem('username-8/3-ns', val)
     setSignedInName(val)
