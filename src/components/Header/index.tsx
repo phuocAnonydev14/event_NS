@@ -9,14 +9,13 @@ import {useDeviceContext} from "../../providers/DeviceProvider.tsx";
 export default function Header() {
 
   const [val, setVal] = useState('')
-  const [signedInName, setSignedInName] = useState<string | null>('');
   const {addService, updateDevice, checkDatabase} = useRealtimeDB()
-  const {deviceId} = useDeviceContext()
+  const {deviceId, setUserName,userName} = useDeviceContext()
   
   const handleSubmitUsername = () => {
     if (!val) return
     localStorage.setItem('username-8/3-ns', val)
-    setSignedInName(val)
+    setUserName(val)
     updateDevice(deviceId, val)
     addService({name: val},deviceId)
     toast('Tên xink như cậu vậy 🥰')
@@ -25,12 +24,10 @@ export default function Header() {
   useEffect(() => {
     checkDatabase('devices', deviceId).then(({data}) => {
       if (data.username) {
-        console.log('data', data);
-        setSignedInName(data.username)
+        setUserName(data.username)
       }else{
-        console.log('data2');
         const currentUsername = localStorage.getItem('username-8/3-ns');
-        setSignedInName(currentUsername);
+        setUserName(currentUsername||"");
       }
     })
   }, [deviceId]);
@@ -56,7 +53,7 @@ export default function Header() {
             {"Chúc cho các chị em nhà NorthStudio...."}
           </div>
           <div style={{ marginBottom: "120px", display: "flex", gap: "10px" }}>
-            {!signedInName ?
+            {!userName ?
               <>	
               <Input onChange={(e) => setVal(e.target.value)} placeholder={'Xin hỏi username của cậu...'} className={'email-input'}
                 style={{ background: "rgba(0, 0, 0, 0.5)", minWidth: "200px", borderRadius: "12px" }} />
@@ -65,11 +62,11 @@ export default function Header() {
               :
               <div style={{ color: "#fff", textAlign: "center" }}>
                 <h2 >
-                  Hi lady <span style={{ fontFamily: "'Roboto', cursive" }}>{signedInName}</span>
+                  Hi lady <span style={{ fontFamily: "'Roboto', cursive" }}>{userName}</span>
                 </h2>
                 <span onClick={() => {
                   localStorage.removeItem('username-8/3-ns')
-                  setSignedInName('')
+                  setUserName('')
                 }} style={{ textDecoration: "underline", cursor: "pointer", color: 'gray' }}>{"Use another username 👰‍♀️"}</span>
               </div>
             }
