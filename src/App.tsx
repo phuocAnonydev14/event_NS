@@ -11,7 +11,7 @@ import {ToastContainer, toast} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import {WaterOrder} from "./components/WaterOrder";
 import {ServiceOrder} from "./components/Service";
-import Index from "./components/HeartBeat";
+import HeartBeat from "./components/HeartBeat";
 import Header from "./components/Header";
 import {getToken, onMessage} from "firebase/messaging";
 import {messaging, useMessaging, useRealtimeDB} from "./utils/firebase.utils.ts";
@@ -110,12 +110,11 @@ function App() {
 					<div style={{display: "flex", justifyContent: "center", alignItems: "center", marginBottom: "50px"}}>
 						<Button className={"btn-submit"} size={"large"} type={"primary"} onClick={() => handleAddFirebase()}>Gửi yêu
 							cầu của bạn</Button>
-					
 					</div>
-					<Index/>
 				</div>
 			</SmoothScroll>
 			<ChatBox/>
+					<HeartBeat/>
 		</div>
 	)
 }
