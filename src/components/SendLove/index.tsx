@@ -16,48 +16,55 @@ const celebList = ['Gavin Casalegno.webp', 'Gavin Casalegno Diễn viên.jpg', '
 	'Joseph Gordon.jpg', 'Justin Bieber.webp', 'Lee Min Ho.jpg', 'Lê Minh.png', 'Lưu Đức Hoa.jpg', 'MCK.webp', 'Mono(1).PNG', 'MTP.webp', 'noo-phuoc-thinh.jpg',
 	'Shawn Mendes.webp', 'soobin-hoang-son.jpg', 'Timothée Chalamet.webp', 'V - BTS.webp']
 
-const males = [
+const man = [
 	{
-		name: 'Nguyen Duy Tien',
-		age: 23,
-		image: '/a_tien_ns.jpg'
+		image: '/avatar/Nhân.jpg',
+		name: 'Nguyễn Anh Nhân'
 	}, {
-		name: 'Nguyen Duy Tien',
-		age: 23,
-		image: '/a_tien_ns.jpg'
+		image: '/avatar/LXNgoc.JPG',
+		name: 'Lê Xuân Ngọc'
 	}, {
-		name: 'Nguyen Duy Tien',
-		age: 23,
-		image: '/a_tien_ns.jpg'
+		image: '/avatar/tien.jpg',
+		name: 'Nguyễn Duy Tiến'
 	}, {
-		name: 'Nguyen Duy Tien',
-		age: 23,
-		image: '/a_dung_ns.jpg'
+		image: '/avatar/ngoc.jpg',
+		name: 'Phạm Đức Ngọc'
 	}, {
-		name: 'Nguyen Duy Tien',
-		age: 23,
-		image: '/a_tien_ns.jpg'
+		image: '/avatar/CA.PNG',
+		name: 'Cao Thế Anh'
 	}, {
-		name: 'Nguyen Duy Tien',
-		age: 23,
-		image: '/a_tien_ns.jpg'
+		image: '/avatar/quyet.JPG',
+		name: 'Nguyễn Văn Quyết'
 	}, {
-		name: 'Nguyen Duy Tien',
-		age: 23,
-		image: '/a_dung_ns.jpg'
+		image: '/avatar/Dũng.jpg',
+		name: 'Hoàng Ngọc Dũng'
 	}, {
-		name: 'Nguyen Duy Tien',
-		age: 23,
-		image: '/a_tien_ns.jpg'
+		image: '/avatar/hieu.JPG',
+		name: 'Phan Anh Hiếu'
 	}, {
-		name: 'Nguyen Duy Tien',
-		age: 23,
-		image: '/a_dung_ns.jpg'
+		image: '/avatar/mduc.HEIC',
+		name: 'Nguyễn Minh Đức'
 	}, {
-		name: 'Nguyen Duy Tien',
-		age: 23,
-		image: '/a_dung_ns.jpg'
+		image: '/avatar/phuoc.JPG',
+		name: 'Hồ Hữu Phước'
+	}, {
+		image: '/avatar/manhtuan.jpg',
+		name: 'Nguyễn Mạnh Tuấn'
+	}, {
+		image: '/avatar/tam.JPG',
+		name: 'Nguyễn Hữu Tâm'
 	},
+	{
+		image: '/avatar/tin.JPG',
+		name: 'Nguyễn Phú Tín'
+	}, {
+		image: '/avatar/tuananh.jpg',
+		name: 'Nguyễn Tuấn Anh'
+	},
+	{
+		image: '/avatar/quaan hoang.JPG',
+		name: 'Quân Hoàng'
+	}
 ]
 
 export default function SendLove() {
@@ -68,7 +75,7 @@ export default function SendLove() {
 		<h1>Trao gửi yêu thương</h1>
 		<p>Bạn muốn nhận lời chúc từ ai nhỉ?</p>
 		<p>Hãy “ấn” vào người mà bạn muốn nhận lời chúc nhé</p>
-		<div className={'sl-user-boxes'}>{males.map((item, index) => {
+		<div className={'sl-user-boxes'}>{man.map((item, index) => {
 			return <div onClick={() => {
 				setIsCurrentSelected(true)
 				setTimeout(() => {

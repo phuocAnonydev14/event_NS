@@ -79,7 +79,6 @@ function App() {
 	}
 	
 	onMessage(messaging, (payload: any) => {
-		console.log({payload})
 		if (!(payload.data['gcm.notification.type'] === "chat")) {
 			console.log('Message received.', payload);
 			toast(<Message notification={payload.notification}/>);
