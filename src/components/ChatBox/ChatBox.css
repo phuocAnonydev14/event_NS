@@ -14,7 +14,7 @@
 }
 
 .chatItem{
-    padding: 2px 10px;
+    padding: 4px 10px;
 }
 
 .chatFooter{
@@ -31,6 +31,16 @@
 
 .right-dir{
     direction: rtl;
+}
+
+.msg-content{
+    max-width: 100% !important;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+.right-dir p{
+    background: #FFD0EC !important;
 }
 
 .chatCollapse:hover{

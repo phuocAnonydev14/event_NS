@@ -78,8 +78,8 @@ export default function ChatBox() {
 						{chatList?.map(({name, content, time}: any) => {
 							return <div className={`chatItem ${name === currentAccount && 'right-dir'}`} key={time}>
 								<h4 style={{marginBottom: "5px"}}>{name} </h4>
-								<p style={{
-									padding: "5px 14px",
+								<p className={'msg-content'} style={{
+									padding: "5px 16px",
 									borderRadius: "40px",
 									backgroundColor: "#98ABEE",
 									width: "max-content"

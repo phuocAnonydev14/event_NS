@@ -19,10 +19,11 @@ const celebList = ['Gavin Casalegno.webp', 'Gavin Casalegno Diễn viên.jpg', '
 const man = [
 	{
 		image: '/avatar/Nhân.jpg',
-		name: 'Nguyễn Anh Nhân'
+		name: 'Nguyễn Anh Nhân',
 	}, {
 		image: '/avatar/LXNgoc.JPG',
-		name: 'Lê Xuân Ngọc'
+		name: 'Lê Xuân Ngọc',
+		vid: '/vid_love/Lê Xuân Ngọc.MOV'
 	}, {
 		image: '/avatar/tien.jpg',
 		name: 'Nguyễn Duy Tiến'
@@ -68,7 +69,7 @@ const man = [
 ]
 
 export default function SendLove() {
-	const [selectedName, setSelectedName] = useState('')
+	const [selectedUser, setSelectedUser] = useState<any>(null)
 	const [isCurrentSelected, setIsCurrentSelected] = useState(false)
 	
 	return <div className={'sl-wrapper'}>
@@ -80,16 +81,16 @@ export default function SendLove() {
 				setIsCurrentSelected(true)
 				setTimeout(() => {
 					setIsCurrentSelected(false)
-					setSelectedName(item.name)
+					setSelectedUser(item)
 				}, 5500)
 			}} className={'sl-user-box'}>
 				<UserBox
 					isCurrentSelected={isCurrentSelected}
 					index={index}
-					key={index} name={item.name} age={item.age} image={item.image}/></div>
+					key={index} name={item.name} age={2} image={item.image}/></div>
 		})}</div>
 		
-		{selectedName && <VidLuvModal open={!!selectedName} onClose={() => setSelectedName('')} name={selectedName}/>}
+		{selectedUser && <VidLuvModal vid={selectedUser?.vid} open={!!selectedUser} onClose={() => setSelectedUser(null)} name={selectedUser.name}/>}
 	</div>
 }
 
@@ -132,11 +133,11 @@ const UserBox = ({name, image, index, isCurrentSelected}: any) => {
 	</>
 }
 
-const VidLuvModal = ({open, onClose, vidUrl, name}: any) => {
+const VidLuvModal = ({open, onClose, vid, name}: any) => {
 	return <Modal centered title={`Lơi chúc từ ${name} iu dấu 🩷`} open={open} onCancel={onClose}>
 		<div style={{display: "flex", justifyContent: "center", paddingBottom: 10}}>
 			<video autoPlay controls width="300" height="500">
-				<source type="video/mp4" src="/vid_love/file_example_MP4_480_1_5MG.mp4"/>
+				<source type="video/mp4" src={vid || "/vid_love/file_example_MP4_480_1_5MG.mp4"}/>
 			</video>
 		</div>
 	</Modal>
