@@ -80,14 +80,14 @@ export const useMessaging = () => {
 export const useRealtimeDB = () => {
 	const db = getDatabase(app);
 	
-	const checkDatabase = async (name: "devices" | "services", deviceId: string) => {
+	const checkDatabase = async (name: "devices" | "services" | "rating" | string, itemId: string) => {
 		const dbRef = ref(db, `/${name}`);
 		try {
 			const snapshot = await get(dbRef);
 			if (snapshot.exists()) {
 				const data = snapshot.val();
 				for (const key in data) {
-					if (data[key]?.id === deviceId) {
+					if (data[key]?.id === itemId) {
 						return {dbRef, key, data: data[key]};
 					}
 				}
@@ -150,12 +150,31 @@ export const useRealtimeDB = () => {
 		}
 		return []
 	}
+
+	const rateVideo = async (deviceId:string, videoId: string, rating: number, username: string) => {
+		const {key, dbRef , data} = await checkDatabase('rating/' + videoId, deviceId);
+		if (key) {
+			const ratingRef = ref(db, `/rating/${videoId}/${key}`);
+			set(ratingRef, {...data, rating});
+		}else{
+			const newRatingRef = push(dbRef);
+			set(newRatingRef, {id: deviceId, rating, username});
+		}
+	}
+
+	const getRating = async (deviceId: string, videoId: string) => {
+		const {data} = await checkDatabase('rating', deviceId);
+		if (data) {
+			return data[videoId];
+		}
+	}
 	
 	return {
 		addDevice,
 		addService,
 		getAllService,
 		updateDevice,
-		checkDatabase
+		checkDatabase,
+		rateVideo
 	};
 }
