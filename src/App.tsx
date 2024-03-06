@@ -22,7 +22,7 @@ import {Button, Modal} from "antd";
 import {useChatContext} from "./providers/ChatProvider.tsx";
 import ChatBox from "./components/ChatBox";
 import _ from "lodash";
-import { request } from "./utils/utils.tsx";
+import { request } from "./components/warning.tsx";
 
 
 function App() {
@@ -121,7 +121,7 @@ function App() {
 				</div>
 			</SmoothScroll>
 			<ChatBox/>
-					<HeartBeat/>
+			<HeartBeat/>
 		</div>
 	)
 }

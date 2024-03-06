@@ -6,7 +6,7 @@ import { UrgeWithPleasureComponent } from "../TimerCoutdown.tsx";
 import { Modal } from "antd";
 import { useRealtimeDB } from "../../utils/firebase.utils.ts";
 import { useDeviceContext } from "../../providers/DeviceProvider.tsx";
-import { request } from "../../utils/utils.tsx";
+import { request } from "../warning.tsx";
 
 const explosionProps = {
   force: 0.8,
@@ -72,7 +72,7 @@ const man = [
     name: "Phan Anh Hiếu",
   },
   {
-    image: "/avatar/mduc.HEIC",
+    image: "/avatar/mduc.jpg",
     name: "Nguyễn Minh Đức",
   },
   {
@@ -136,7 +136,7 @@ export default function SendLove() {
                 setTimeout(() => {
                   setIsCurrentSelected(false);
                   setSelectedUser(item);
-                }, 5500);
+                }, 600);
               }}
               className={"sl-user-box"}
             >
@@ -168,21 +168,17 @@ export default function SendLove() {
 const UserBox = ({ name, image, index, isCurrentSelected }: any) => {
   const [isSelected, setIsSelected] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
-  const [contdownSuccess, setCountdownSuccess] = useState(false);
+  // const [contdownSuccess, setCountdownSuccess] = useState(false);
   const { deviceId, userName } = useDeviceContext();
   return (
     <>
       {isSelected ? (
-        contdownSuccess ? (
-          <img
-            // className={'animate__animated animate__rubberBand'}
-            className={"animate__animated animate__rubberBand animate__wobble"}
-            src={image}
-            alt=""
-          />
-        ) : (
-          <UrgeWithPleasureComponent />
-        )
+        <img
+          // className={'animate__animated animate__rubberBand'}
+          className={"animate__animated animate__rubberBand animate__wobble"}
+          src={image}
+          alt=""
+        />
       ) : (
         <img
           style={{ cursor: "pointer" }}
@@ -197,20 +193,12 @@ const UserBox = ({ name, image, index, isCurrentSelected }: any) => {
             setIsClicked(true);
             setIsSelected(true);
             setTimeout(() => {
-              setCountdownSuccess(true);
-              setTimeout(() => setIsClicked(false), 2500);
-              toast(
-                `Chúc mừng bạn đã nhận được lời chúc từ ${name} iu dấu 🥰!`,
-                { type: "success" }
-              );
-            }, 2998);
+              setIsClicked(false);
+            }, 100);
           }}
           src={"/celeb/" + celebList[index]}
           alt=""
         />
-      )}
-      {contdownSuccess && isClicked && (
-        <ConfettiExplosion {...explosionProps} />
       )}
     </>
   );

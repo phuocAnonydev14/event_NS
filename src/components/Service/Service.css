@@ -215,8 +215,5 @@
     border: 3px solid greenyellow;
 }
 .ant-modal-content{
-    width: 700px;
-}
-.ant-modal-content{
-    padding: 0;
+    padding: 0px
 }
