@@ -1,6 +1,6 @@
 import { Modal } from "antd";
 
-export const request = () => {
+export const NotiWarning = () => {
     Modal.warning({
         title: 'Bật thông báo ở đây này~~~ reload lại trang ngay sau đó nhé 😘😘😘',
         content: <div style={{marginTop:16}}>

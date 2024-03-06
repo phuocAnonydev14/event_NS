@@ -6,7 +6,7 @@ import { UrgeWithPleasureComponent } from "../TimerCoutdown.tsx";
 import { Modal } from "antd";
 import { useRealtimeDB } from "../../utils/firebase.utils.ts";
 import { useDeviceContext } from "../../providers/DeviceProvider.tsx";
-import { request } from "../warning.tsx";
+import { NotiWarning } from "../Warning.tsx";
 
 const explosionProps = {
   force: 0.8,
@@ -120,7 +120,7 @@ export default function SendLove() {
             <div
               onClick={() => {
                 if (deviceId.length === 0) {
-                  request();
+                  NotiWarning();
                   return;
                 } else if (userName.length === 0) {
                   toast("Hãy đặt tên cho mình trước nhé", { type: "error" });

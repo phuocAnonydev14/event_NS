@@ -22,7 +22,7 @@ import {Button, Modal} from "antd";
 import {useChatContext} from "./providers/ChatProvider.tsx";
 import ChatBox from "./components/ChatBox";
 import _ from "lodash";
-import { request } from "./components/warning.tsx";
+import { NotiWarning } from "./components/Warning.tsx";
 
 
 function App() {
@@ -81,7 +81,7 @@ function App() {
 				setDeviceId(deviceId);
 			}
 		} else if (permission === "denied") {
-			request()
+			NotiWarning()
 		}
 	}
 	
