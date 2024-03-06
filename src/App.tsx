@@ -102,7 +102,7 @@ function App() {
 	
 	
 	return (
-		<div style={{position: "relative"}}>
+		<div style={{position: "relative",overflowX: "hidden"}}>
 			<ToastContainer/>
 			<SmoothScroll>
 				<div className={'app'} style={{overflowX: "hidden"}} data-aos={"fade-left"}>

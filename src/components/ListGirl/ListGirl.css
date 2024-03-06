@@ -4,7 +4,9 @@
 
 
 .girl-item {
+    padding: 10px;
     display: flex;
+    flex-wrap: wrap;
 }
 
 .flex-reverse{
@@ -61,5 +63,11 @@
     }100%{
         transform: translateX(300px) rotate(360deg);
 
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .girl-item-img, .girl-item-info {
+        width: 100% !important;
     }
 }
