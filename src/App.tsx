@@ -21,8 +21,8 @@ import {useDeviceContext} from "./providers/DeviceProvider.tsx";
 import {Button, Modal} from "antd";
 import {useChatContext} from "./providers/ChatProvider.tsx";
 import ChatBox from "./components/ChatBox";
-import _ from "lodash";
 import { NotiWarning } from "./components/Warning.tsx";
+import {OrderedListModal} from "./components/OrderedListModal.tsx";
 
 
 function App() {
@@ -35,6 +35,7 @@ function App() {
 	const {setDeviceId, deviceId} = useDeviceContext()
 	const {sendNotification} = useMessaging();
 	const {setChatList, setAmountUnread} = useChatContext()
+	const [openOrderList, setOpenOrderList] = useState(false);
 	
 	const handleAddFirebase = async () => {
 		const name = localStorage.getItem('username-8/3-ns')
@@ -112,14 +113,17 @@ function App() {
 						<WaterOrder selectedOrder={selectedOrder} setSelectedOrder={setSelectedOrder}/>
 						<ServiceOrder selectedService={selectedService} setSelectedService={setSelectedService}/>
 					</div>
-					<div style={{display: "flex", justifyContent: "center", alignItems: "center", marginBottom: "50px"}}>
-						<Button className={"btn-submit"} size={"large"} type={"primary"} onClick={() => handleAddFirebase()}>Gửi yêu
-							cầu của bạn</Button>
+					<div style={{display: "flex",flexDirection:"column",gap:10, justifyContent: "center", alignItems: "center", marginBottom: "50px"}}>
+						<Button className={"btn-submit"} size={"large"} type={"primary"} onClick={() => handleAddFirebase()}>
+							Gửi yêu cầu của bạn
+						</Button>
+						<Button type={"text"} onClick={() => setOpenOrderList(true)}><p style={{fontWeight:500}}>Xem danh sách order</p></Button>
 					</div>
 				</div>
 			</SmoothScroll>
 			<ChatBox/>
 			<HeartBeat/>
+			<OrderedListModal open={openOrderList} onClose={() => setOpenOrderList(false)}/>
 		</div>
 	)
 }
