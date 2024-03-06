@@ -6,6 +6,7 @@ import { UrgeWithPleasureComponent } from "../TimerCoutdown.tsx";
 import { Modal } from "antd";
 import { useRealtimeDB } from "../../utils/firebase.utils.ts";
 import { useDeviceContext } from "../../providers/DeviceProvider.tsx";
+import { request } from "../../utils/utils.tsx";
 
 const explosionProps = {
   force: 0.8,
@@ -107,7 +108,7 @@ const man = [
 export default function SendLove() {
   const [selectedUser, setSelectedUser] = useState<any>(null);
   const [isCurrentSelected, setIsCurrentSelected] = useState(false);
-
+  const { deviceId, userName } = useDeviceContext();
   return (
     <div className={"sl-wrapper"}>
       <h1>Trao gửi yêu thương</h1>
@@ -118,6 +119,19 @@ export default function SendLove() {
           return (
             <div
               onClick={() => {
+                if (deviceId.length === 0) {
+                  request();
+                  return;
+                } else if (userName.length === 0) {
+                  toast("Hãy đặt tên cho mình trước nhé", { type: "error" });
+                  setTimeout(() => {
+                    document.scrollingElement?.scrollTo({
+                      top: 0,
+                      behavior: "smooth",
+                    });
+                  }, 500);
+                  return;
+                }
                 setIsCurrentSelected(true);
                 setTimeout(() => {
                   setIsCurrentSelected(false);
@@ -139,7 +153,7 @@ export default function SendLove() {
         })}
       </div>
 
-      {selectedUser && (
+      {selectedUser && deviceId.length !== 0 && (
         <VidLuvModal
           vid={selectedUser?.vid}
           open={!!selectedUser}
@@ -155,6 +169,7 @@ const UserBox = ({ name, image, index, isCurrentSelected }: any) => {
   const [isSelected, setIsSelected] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
   const [contdownSuccess, setCountdownSuccess] = useState(false);
+  const { deviceId, userName } = useDeviceContext();
   return (
     <>
       {isSelected ? (
@@ -172,7 +187,13 @@ const UserBox = ({ name, image, index, isCurrentSelected }: any) => {
         <img
           style={{ cursor: "pointer" }}
           onClick={() => {
-            if (isCurrentSelected) return;
+            if (deviceId.length === 0) {
+              return;
+            } else if (userName.length === 0) {
+              return;
+            } else if (isCurrentSelected) {
+              return;
+            }
             setIsClicked(true);
             setIsSelected(true);
             setTimeout(() => {

@@ -21,6 +21,8 @@ import {useDeviceContext} from "./providers/DeviceProvider.tsx";
 import {Button, Modal} from "antd";
 import {useChatContext} from "./providers/ChatProvider.tsx";
 import ChatBox from "./components/ChatBox";
+import _ from "lodash";
+import { request } from "./utils/utils.tsx";
 
 
 function App() {
@@ -37,8 +39,8 @@ function App() {
 	const handleAddFirebase = async () => {
 		const name = localStorage.getItem('username-8/3-ns')
 		if (!name || ((!selectedOrder) || (!selectedService.name || !selectedService.userAction))) {
-			toast('Nhâp tên và order của bạn trước khi order')
-			return
+        toast('Nhâp tên và order của bạn trước khi order')
+        return
 		}
 		await addService({order: selectedOrder, name, service: selectedService}, deviceId)
 		await sendNotification({
@@ -47,16 +49,24 @@ function App() {
 			title: `${selectedOrder}, ${selectedService.name} từ anh ${selectedService.userAction} 🥰`
 		});
 	}
-	
+
+  const fetchRating = async () => {
+    const res = await getRating(deviceId,"test")
+    console.log(res);
+  
+  }
+
 	useEffect(() => {
 		AOS.init({
 			duration: 400,
 			delay: 200,
 		});
 		requestPermission();
-		getRating(deviceId,"test").then((res) => {
-			console.log(res);
-		})
+    const interval = setInterval(() => {
+      fetchRating()
+    }, 500);
+  
+    return () => clearInterval(interval);
 	}, [deviceId])
 	
 	async function requestPermission() {
@@ -71,13 +81,7 @@ function App() {
 				setDeviceId(deviceId);
 			}
 		} else if (permission === "denied") {
-			Modal.warning({
-				title: 'Hãy bật thông báo để có trải nghiệm tốt nhất',
-				content: <>
-					<img src="/allow-notification.png" alt=""/>
-				</>
-			})
-			alert("You denied for the notification");
+			request()
 		}
 	}
 	

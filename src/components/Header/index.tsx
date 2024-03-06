@@ -55,7 +55,7 @@ export default function Header() {
           <div style={{ marginBottom: "120px", display: "flex", gap: "10px" }}>
             {!userName ?
               <>	
-              <Input onChange={(e) => setVal(e.target.value)} placeholder={'Xin hỏi username của cậu...'} className={'email-input'}
+              <Input id='header-name' onChange={(e) => setVal(e.target.value)} placeholder={'Xin hỏi username của cậu...'} className={'email-input'}
                 style={{ background: "rgba(0, 0, 0, 0.5)", minWidth: "200px", borderRadius: "12px" }} />
                 <Button onClick={handleSubmitUsername} style={{ background: "rgba(255, 255, 255, 1)", color: 'rgba(23, 23, 23, 1)' }} type={'primary'}>{"Done"}</Button>
               </>

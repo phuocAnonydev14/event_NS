@@ -187,7 +187,7 @@ export const useRealtimeDB = () => {
 	}
 
 	const getRating = async (deviceId: string, videoId: string) => {
-		const { key, dbRef, data } = await checkDatabase({ name: `rating`, videoId });
+		const { data } = await checkDatabase({ name: `rating`, videoId });
 		let total = 0;
 		let count: ratingValue = {
 			veryLow: 0,
@@ -196,6 +196,7 @@ export const useRealtimeDB = () => {
 			high: 0,
 			veryHigh: 0
 		}
+		let userRating = await checkDatabase({ name: `rating/${videoId}`, deviceId });
 		if (data) {
 			Object.values(data).forEach((item: any) => {
 				switch (item?.rating) {
@@ -220,7 +221,7 @@ export const useRealtimeDB = () => {
 			})
 			total = Object.values(count).reduce((acc, curr) => acc + curr, 0);
 		}
-		return { total, count, data };
+		return { total, count, data, userRating: {...userRating.data, key: userRating.key} };
 	}
 
 	return {
