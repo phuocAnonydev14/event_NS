@@ -1,5 +1,5 @@
 import "./SendLove.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ConfettiExplosion from "react-confetti-explosion";
 import { toast } from "react-toastify";
 import { UrgeWithPleasureComponent } from "../TimerCoutdown.tsx";
@@ -7,6 +7,7 @@ import { Modal } from "antd";
 import { useRealtimeDB } from "../../utils/firebase.utils.ts";
 import { useDeviceContext } from "../../providers/DeviceProvider.tsx";
 import { NotiWarning } from "../Warning.tsx";
+import ReactPlayer from "react-player";
 
 const explosionProps = {
   force: 0.8,
@@ -109,6 +110,7 @@ export default function SendLove() {
   const [selectedUser, setSelectedUser] = useState<any>(null);
   const [isCurrentSelected, setIsCurrentSelected] = useState(false);
   const { deviceId, userName } = useDeviceContext();
+
   return (
     <div className={"sl-wrapper"}>
       <h1>Trao gửi yêu thương</h1>
@@ -165,16 +167,13 @@ export default function SendLove() {
   );
 }
 
-const UserBox = ({ name, image, index, isCurrentSelected }: any) => {
+const UserBox = ({ image, index, isCurrentSelected, rating }: any) => {
   const [isSelected, setIsSelected] = useState(false);
-  const [isClicked, setIsClicked] = useState(false);
-  // const [contdownSuccess, setCountdownSuccess] = useState(false);
   const { deviceId, userName } = useDeviceContext();
   return (
     <>
       {isSelected ? (
         <img
-          // className={'animate__animated animate__rubberBand'}
           className={"animate__animated animate__rubberBand animate__wobble"}
           src={image}
           alt=""
@@ -190,11 +189,7 @@ const UserBox = ({ name, image, index, isCurrentSelected }: any) => {
             } else if (isCurrentSelected) {
               return;
             }
-            setIsClicked(true);
             setIsSelected(true);
-            setTimeout(() => {
-              setIsClicked(false);
-            }, 100);
           }}
           src={"/celeb/" + celebList[index]}
           alt=""
@@ -227,7 +222,15 @@ const icon = [
   },
 ];
 
-const VidLuvModal = ({ open, onClose, vid, name }: any) => {
+interface VidLuvModalProps {
+  open?: boolean;
+  onClose: () => void;
+  vid: string;
+  name: string;
+  ratingValue?: RatingProps;
+}
+
+const VidLuvModal = ({ open, onClose, vid, name }: VidLuvModalProps) => {
   const [pick, setItem] = useState<number>(-1);
   const { rateVideo } = useRealtimeDB();
   const { userName, deviceId } = useDeviceContext();
@@ -235,7 +238,31 @@ const VidLuvModal = ({ open, onClose, vid, name }: any) => {
     let value = item === pick ? -1 : item;
     setItem(value);
     rateVideo(deviceId, "test", value, userName);
+    setTimeout(() => {
+      setEmoji(!emoji);
+    }, 600);
   };
+  const [emoji, setEmoji] = useState<boolean>(false);
+  const [rating, setRating] = useState<RatingProps>();
+  const { getRating } = useRealtimeDB();
+  let index = 0;
+  const fetchRating = async () => {
+    const res = await getRating(deviceId, "test");
+    if (res) {
+      index++;
+      setRating(res);
+      setItem(res.userRating.id === deviceId ? res.userRating.rating : -1);
+      console.log(index, res);
+    }
+  };
+  useEffect(() => {
+    fetchRating();
+    const interval = setInterval(() => {
+      fetchRating();
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <Modal
       centered
@@ -247,61 +274,134 @@ const VidLuvModal = ({ open, onClose, vid, name }: any) => {
         style={{
           display: "flex",
           justifyContent: "center",
-          paddingBottom: 10,
           flexDirection: "column",
           alignItems: "center",
           gap: 24,
         }}
       >
-        <video autoPlay controls width="300" height="500">
-          <source
-            type="video/mp4"
-            src={vid || "/vid_love/file_example_MP4_480_1_5MG.mp4"}
-          />
-        </video>
         <div
           style={{
-            flex: 1,
-            display: "flex",
+            width: "100%",
+            borderWidth: 1,
+            borderColor: "#00000030",
+            borderStyle: "solid",
+            borderRadius: 10,
+            overflow: "hidden",
           }}
         >
-          {icon.map(({ alt, src }, index) => {
-            return (
-              <button
-                onClick={() => handleRate(index)}
-                key={index}
-                className="rating"
+          <ReactPlayer
+            width={"100%"}
+            playing
+            url={vid || "/vid_love/file_example_MP4_480_1_5MG.mp4"}
+            controls
+          />
+        </div>
+        {emoji ? (
+          <div
+            style={{
+              display: "flex",
+              width: "100%",
+            }}
+          >
+            {icon.map(({ alt, src }, index) => {
+              return (
+                <button
+                  onClick={() => handleRate(index)}
+                  key={index}
+                  className="rating"
+                  style={{
+                    outline: "none",
+                    border: "none",
+                    background: "none",
+                  }}
+                >
+                  {pick === index ? (
+                    <img
+                      alt={alt}
+                      src={src}
+                      style={{
+                        width: "50px",
+                        height: "50px",
+                        scale: "1.2",
+                        translate: "0px -14px",
+                      }}
+                    />
+                  ) : (
+                    <img
+                      alt={alt}
+                      src={src}
+                      style={{
+                        width: "50px",
+                        height: "50px",
+                      }}
+                    />
+                  )}
+                </button>
+              );
+            })}
+          </div>
+        ) : (
+          <button
+            onClick={() => setEmoji(!emoji)}
+            style={{
+              display: "flex",
+              width: "100%",
+              borderWidth: 0,
+              flexDirection: "row",
+              alignItems: "center",
+              padding: "0px 16px",
+            }}
+          >
+            <p
+              style={{
+                margin: 0,
+                padding: 0,
+                fontSize: 24,
+                fontWeight: "bold",
+                marginRight: 16,
+              }}
+            >
+              {rating?.total}
+            </p>
+            {!(rating && rating.total > 1) ? (
+              <div
                 style={{
-                  outline: "none",
-                  border: "none",
-                  background: "none",
+                  display: "flex",
+                  backgroundColor: "gray",
                 }}
               >
-                {pick === index ? (
-                  <img
-                    alt={alt}
-                    src={src}
-                    style={{
-                      width: "50px",
-                      height: "50px",
-                      scale: "1.2",
-                      translate: "0px -14px",
-                    }}
-                  />
-                ) : (
-                  <img
-                    alt={alt}
-                    src={src}
-                    style={{
-                      width: "50px",
-                      height: "50px",
-                    }}
-                  />
-                )}
-              </button>
-            );
-          })}
-        </div>
+                <div
+                  style={{
+                    width: "50px",
+                    height: "50px",
+                    borderRadius: 50,
+                    background: "blue",
+                  }}
+                ></div>
+                <div
+                  style={{
+                    width: "50px",
+                    height: "50px",
+                    borderRadius: 50,
+                    background: "red",
+                    translate: "-25px 0px",
+                  }}
+                ></div>
+              </div>
+            ) : (
+              <div>
+                <div
+                  style={{
+                    width: "50px",
+                    height: "50px",
+                    borderRadius: 50,
+                    background: "red",
+                  }}
+                ></div>
+              </div>
+            )}
+          </button>
+        )}
       </div>
     </Modal>
   );

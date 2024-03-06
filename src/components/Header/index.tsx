@@ -17,7 +17,7 @@ export default function Header() {
     localStorage.setItem('username-8/3-ns', val)
     setUserName(val)
     updateDevice(deviceId, val)
-    addService({name: val},deviceId)
+    addService({username: val},deviceId)
     toast('Tên xink như cậu vậy 🥰')
   }
 
