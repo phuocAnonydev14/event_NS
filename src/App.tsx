@@ -21,7 +21,6 @@ import {useDeviceContext} from "./providers/DeviceProvider.tsx";
 import {Button, Modal} from "antd";
 import {useChatContext} from "./providers/ChatProvider.tsx";
 import ChatBox from "./components/ChatBox";
-import _ from "lodash";
 import { request } from "./utils/utils.tsx";
 
 
@@ -102,7 +101,7 @@ function App() {
 	
 	
 	return (
-		<div style={{position: "relative"}}>
+		<div style={{position: "relative",overflowX: "hidden"}}>
 			<ToastContainer/>
 			<SmoothScroll>
 				<div className={'app'} style={{overflowX: "hidden"}} data-aos={"fade-left"}>
