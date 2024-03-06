@@ -242,6 +242,7 @@ const VidLuvModal = ({ open, onClose, vid, name }: any) => {
       title={`Lơi chúc từ ${name} iu dấu 🩷`}
       open={open}
       onCancel={onClose}
+      onOk={onClose}
     >
       <div
         style={{

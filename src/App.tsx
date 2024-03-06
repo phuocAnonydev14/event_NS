@@ -52,8 +52,6 @@ function App() {
 
   const fetchRating = async () => {
     const res = await getRating(deviceId,"test")
-    console.log(res);
-  
   }
 
 	useEffect(() => {

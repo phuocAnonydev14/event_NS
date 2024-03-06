@@ -62,7 +62,7 @@ export default function ChatBox() {
 				backgroundColor: "transparent",
 				display: "inline-block"
 			}}>
-				<div className='chatBox ' style={{width: "24dvw", minWidth: "250px", minHeight: "30dvh", background: "#fff"}}>
+				<div className='chatBox ' style={{width: "24dvw", minWidth: "350px", minHeight: "30dvh", background: "#fff"}}>
 					<div className="header" style={{
 						display: "flex",
 						justifyContent: "space-between",
