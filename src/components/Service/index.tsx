@@ -44,7 +44,7 @@ const man = [
 		image: '/avatar/hieu.JPG',
 		name: 'Phan Anh Hiếu'
 	}, {
-		image: '/avatar/mduc.HEIC',
+		image: '/avatar/mduc.jpg',
 		name: 'Nguyễn Minh Đức'
 	}, {
 		image: '/avatar/phuoc.JPG',
