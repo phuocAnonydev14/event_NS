@@ -69,7 +69,7 @@ const demoList =
 
 export default function ListGirl() {
 	return (<div style={{marginBlock: "40px"}}>
-			<h1 style={{textAlign: "center"}}>My Northstudio's pretty girls</h1>
+			<h1 style={{textAlign: "center"}}>My NorthStudio's pretty girls 👰‍♀️</h1>
 			{demoList.map((list, index) =>
 				<Item images={list.images} aos={index % 2 !== 0 ? 'fade-left' : 'fade-right'} isReverse={index % 2 !== 0}
 							key={index}/>)}

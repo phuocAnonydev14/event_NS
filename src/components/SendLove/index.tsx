@@ -17,7 +17,7 @@ const explosionProps = {
 };
 
 const celebList = [
-  "Gavin Casalegno.webp",
+  "Đàm Vĩnh Hưng.webp",
   "Gavin Casalegno Diễn viên.jpg",
   "hieu-thu-hai.jpg",
   "Hyun Bin.jpg",
@@ -56,7 +56,7 @@ const man = [
     name: "Phạm Đức Ngọc",
   },
   {
-    image: "/avatar/CA.PNG",
+    image: "/avatar/CA.jpg",
     name: "Cao Thế Anh",
     vid: "/vid_love/Cao Thế Anh.MOV",
   },
@@ -95,6 +95,7 @@ const man = [
   {
     image: "/avatar/tuananh.jpg",
     name: "Nguyễn Tuấn Anh",
+    vid: "/vid_love/Nguyễn Tuấn Anh.mov",
   },
   {
     image: "/avatar/quaan hoang.JPG",
@@ -103,6 +104,7 @@ const man = [
   {
     image: "/avatar/duc-be.jpg",
     name: "Nguyễn Văn Đức",
+    vid: "/vid_love/Nguyễn Văn Đức.mp4",
   },
 ];
 
