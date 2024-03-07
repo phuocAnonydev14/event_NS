@@ -118,13 +118,10 @@ export default function SendLove() {
   const [isCurrentSelected, setIsCurrentSelected] = useState(false);
   const [ratingM, setRatingM] = useState<boolean>(false);
   const { deviceId, userName } = useDeviceContext();
-  console.log('====================================');
-  console.log(ratingM);
-  console.log('====================================');
 
   return (
     <div className={"sl-wrapper"}>
-      <h1>Trao gửi yêu thương</h1>
+      <h1 >Trao gửi yêu thương</h1>
       <p>Bạn muốn nhận lời chúc từ ai nhỉ?</p>
       <p>Hãy “ấn” vào người mà bạn muốn nhận lời chúc nhé</p>
       <div className={"sl-user-boxes"}>

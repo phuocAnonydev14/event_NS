@@ -18,7 +18,7 @@ export const OrderedListModal = ({open, onClose}: any) => {
 			setOrderList(formattedResponse)
 		}
 		fetchServices().finally()
-	}, []);
+	}, [open]);
 	
 	return <Modal width={800} open={open} onCancel={onClose} title="Ordered List" onOk={onClose}>
 	<div>
