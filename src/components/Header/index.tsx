@@ -57,7 +57,7 @@ export default function Header() {
               <>	
               <Input id='header-name' onChange={(e) => setVal(e.target.value)} placeholder={'Xin hỏi username của cậu...'} className={'email-input'}
                 style={{ background: "rgba(0, 0, 0, 0.5)", minWidth: "200px", borderRadius: "12px" }} />
-                <Button onClick={handleSubmitUsername} style={{ background: "rgba(255, 255, 255, 1)", color: 'rgba(23, 23, 23, 1)' }} type={'primary'}>{"Done"}</Button>
+                <button onClick={handleSubmitUsername} className={'header-button'}>{"Done"}</button>
               </>
               :
               <div style={{ color: "#fff", textAlign: "center" }}>
@@ -67,7 +67,7 @@ export default function Header() {
                 <span onClick={() => {
                   localStorage.removeItem('username-8/3-ns')
                   setUserName('')
-                }} style={{ textDecoration: "underline", cursor: "pointer", color: 'gray' }}>{"Use another username 👰‍♀️"}</span>
+                }} style={{ textDecoration: "underline", cursor: "pointer", color: 'gray' }}>{"Đăng nhập bằng tên khác️"}</span>
               </div>
             }
           </div>

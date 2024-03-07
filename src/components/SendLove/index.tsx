@@ -14,6 +14,7 @@ import {
 } from "../../utils/string.utils.ts";
 import Lottie from "lottie-react";
 import LoadingAnimation from "../../assets/loading.json";
+import {images} from "../ImageGallery/images.ts";
 
 const explosionProps = {
   force: 0.8,
@@ -47,6 +48,7 @@ const man = [
   {
     image: "/avatar/Nhân.jpg",
     name: "Nguyễn Anh Nhân",
+    vid: "/vid_love/Common.mp4",
   },
   {
     image: "/avatar/LXNgoc.JPG",
@@ -56,10 +58,12 @@ const man = [
   {
     image: "/avatar/tien.jpg",
     name: "Nguyễn Duy Tiến",
+    vid: "/vid_love/Duy Tien.mp4",
   },
   {
     image: "/avatar/ngoc.jpg",
     name: "Phạm Đức Ngọc",
+    vid: "/vid_love/Common.mp4",
   },
   {
     image: "/avatar/CA.jpg",
@@ -69,34 +73,43 @@ const man = [
   {
     image: "/avatar/quyet.JPG",
     name: "Nguyễn Văn Quyết",
+    vid: "/vid_love/Common.mp4",
   },
   {
     image: "/avatar/Dũng.jpg",
     name: "Hoàng Ngọc Dũng",
+    vid: "/vid_love/Hoàng Dũng.mp4",
+    
   },
   {
     image: "/avatar/hieu.JPG",
     name: "Phan Anh Hiếu",
+    vid: "/vid_love/Phan Hếu.mp4",
   },
   {
-    image: "/avatar/mduc.jpg",
+    image: "/avatar/Đức-mobile.jpg",
     name: "Nguyễn Minh Đức",
+    vid: "/vid_love/Common.mp4",
   },
   {
     image: "/avatar/phuoc.JPG",
     name: "Hồ Hữu Phước",
+    vid: "/vid_love/Hồ Phước.mp4",
   },
   {
     image: "/avatar/manhtuan.jpg",
     name: "Nguyễn Mạnh Tuấn",
+    vid: "/vid_love/Nguyễn Mạnh Tuấn.mp4",
   },
   {
     image: "/avatar/tam.JPG",
     name: "Nguyễn Hữu Tâm",
+    vid: "/vid_love/Hữu Tâm.mp4",
   },
   {
     image: "/avatar/tin.JPG",
     name: "Nguyễn Phú Tín",
+    vid: "/vid_love/Nguyen_Phu_Tin.mp4",
   },
   {
     image: "/avatar/tuananh.jpg",
@@ -106,6 +119,7 @@ const man = [
   {
     image: "/avatar/quaan hoang.JPG",
     name: "Quân Hoàng",
+    vid: "/vid_love/Hoàng Quân.mp4",
   },
   {
     image: "/avatar/duc-be.jpg",
@@ -118,14 +132,19 @@ export default function SendLove() {
   const [selectedUser, setSelectedUser] = useState<any>(null);
   const [isCurrentSelected, setIsCurrentSelected] = useState(false);
   const { deviceId, userName } = useDeviceContext();
-
+  const [manList,setManList] = useState(man)
+  
+  useEffect(() => {
+    setManList(man.sort(() => Math.random() - 0.5))
+  }, []);
+  
   return (
     <div className={"sl-wrapper"}>
       <h1>Trao gửi yêu thương</h1>
       <p>Bạn muốn nhận lời chúc từ ai nhỉ?</p>
       <p>Hãy “ấn” vào người mà bạn muốn nhận lời chúc nhé</p>
       <div className={"sl-user-boxes"}>
-        {man.map((item, index) => {
+        {manList.map((item, index) => {
           return (
             <div
               onClick={() => {

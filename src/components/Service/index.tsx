@@ -44,7 +44,7 @@ const man = [
 		image: '/avatar/hieu.JPG',
 		name: 'Phan Anh Hiếu'
 	}, {
-		image: '/avatar/mduc.jpg',
+		image: '/avatar/Đức-mobile.jpg',
 		name: 'Nguyễn Minh Đức'
 	}, {
 		image: '/avatar/phuoc.JPG',
@@ -62,6 +62,9 @@ const man = [
 	}, {
 		image: '/avatar/tuananh.jpg',
 		name: 'Nguyễn Tuấn Anh'
+	}, {
+		image: '/avatar/duc-be.jpg',
+		name: 'Nguyễn Văn Đức'
 	},
 	{
 		image: '/avatar/quaan hoang.JPG',

@@ -72,3 +72,9 @@
         left: 100%;
     }
 }
+
+
+img{
+    object-fit: cover !important;
+    object-position: center !important;
+}
