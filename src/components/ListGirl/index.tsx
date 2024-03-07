@@ -3,91 +3,73 @@ import "./ListGirl.css"
 const demoList =
 	[
 		{
-			"title": "Item 1",
-			"description": "lorem skajdjasdsajksahdsahjksahjsa sa jsa hjksahdjksajksahdjksahjksah",
-			images: ['https://images.unsplash.com/photo-1709038459415-8379ce8ae789?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0fHx8ZW58MHx8fHx8',
-				'https://images.unsplash.com/photo-1709038459415-8379ce8ae789?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0fHx8ZW58MHx8fHx8',
-				'https://images.unsplash.com/photo-1709038459415-8379ce8ae789?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0fHx8ZW58MHx8fHx8',
-				'https://images.unsplash.com/photo-1709038459415-8379ce8ae789?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0fHx8ZW58MHx8fHx8',
+			"title": "Hoàng Ngọc Trâm",
+			date: '11/02/1995  Bảo Bình',
+			description: "Thân gửi chị Trâm, bông hoa nhỏ bé nhưng mạnh mẽ của team BA\n" +
+				"Cảm ơn chị trong thời gian vừa qua đã không quản ngại vất vả để đồng hành cùng góp sức trong các dự án của team. Cảm ơn chị vì đã luôn lo lắng quan tâm, chăm sóc tận tình cho NorthStudio\n" +
+				"NorthStudio mến chúc chị một ngày làm việc thật vui, hạnh phúc và hân hoan. 8/3 nhận được nhiều quà và mãi luôn xinh đẹp",
+			images: ['/girl_detail/Hoang Tram.PNG',
 			]
 		},
 		{
-			"title": "Item 2",
-			"description": "lorem skajdjasdsajksahdsahjksahjsa sa jsa hjksahdjksajksahdjksahjksah",
-			images: ['https://images.unsplash.com/photo-1709038459415-8379ce8ae789?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0fHx8ZW58MHx8fHx8',
-				'https://images.unsplash.com/photo-1709038459415-8379ce8ae789?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0fHx8ZW58MHx8fHx8',
-				'https://images.unsplash.com/photo-1709038459415-8379ce8ae789?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0fHx8ZW58MHx8fHx8',
-				'https://images.unsplash.com/photo-1709038459415-8379ce8ae789?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0fHx8ZW58MHx8fHx8',
+			"title": "Hoàng Thu Thương",
+			date: '21/08/2001  Sư Tử',
+			"description": "Thân gửi Thương - người con gái Công dung ngôn hạnh của NorthStudio\n" +
+				"Cảm ơn Thương vì luôn quan tâm lo lắng tới mọi người từ những điều nhỏ nhặt nhất, bà trùm của những ý tưởng độc đáo, mới lạ\n" +
+				"NorthStudio mến chúc bạn có một ngày 8/3 ý nghĩa, mãi xinh, mãi tươi, luôn hăng say trong mọi cuộc chơi, không chỉ riêng ngày hôm nay mà còn 364 ngày cũng vậy.",
+			images: ['/girl_detail/Thu Thuong.JPG',
 			],
 		},
 		{
-			"title": "Item 3",
-			"description": "lorem skajdjasdsajksahdsahjksahjsa sa jsa hjksahdjksajksahdjksahjksah",
-			images: ['https://images.unsplash.com/photo-1709038459415-8379ce8ae789?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0fHx8ZW58MHx8fHx8',
-				'https://images.unsplash.com/photo-1709038459415-8379ce8ae789?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0fHx8ZW58MHx8fHx8',
-				'https://images.unsplash.com/photo-1709038459415-8379ce8ae789?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0fHx8ZW58MHx8fHx8',
-				'https://images.unsplash.com/photo-1709038459415-8379ce8ae789?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0fHx8ZW58MHx8fHx8',
+			"title": "Lê Võ Lan Nhi",
+			date: '24/05/2002  Song Tử',
+			"description": "Thân gửi Lan Nhi, cô gái duy nhất của team NorthStudio Sài Gòn.\n" +
+				"Cảm ơn em vì đã luôn quan tâm, lo lắng cho cánh đàn ông team Sài Gòn, là vitamin hạnh phúc của các anh/chị/em\n" +
+				"NorthStudio, mến chúc em có một ngày 8/3 ý nghĩa, trọn vẹn và thật nhiều yêu thương. Chúc cho cậu luôn xinh đẹp, hạnh phúc và yêu bản thân mình thật nhiều nhé !",
+			images: ['/girl_detail/Lan Nhi.png',
 			],
 		},
 		{
-			"title": "Item 4",
-			"description": "lorem skajdjasdsajksahdsahjksahjsa sa jsa hjksahdjksajksahdjksahjksah",
-			images: ['https://images.unsplash.com/photo-1709038459415-8379ce8ae789?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0fHx8ZW58MHx8fHx8',
-				'https://images.unsplash.com/photo-1709038459415-8379ce8ae789?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0fHx8ZW58MHx8fHx8',
-				'https://images.unsplash.com/photo-1709038459415-8379ce8ae789?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0fHx8ZW58MHx8fHx8',
-				'https://images.unsplash.com/photo-1709038459415-8379ce8ae789?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0fHx8ZW58MHx8fHx8',
+			"title": "Lê Linh Chi",
+			date: '13/10/2001  Thiên Bình',
+			"description": "Chúc bạn ngày Quốc tế Phụ nữ 8/3 năm 2022 nhiều tiền bạc, niềm vui, thành công và may mắn nhé. Là phụ nữ, hãy sống như một đóa hoa, không nhờ ai mà nở rộ cũng chẳng vì ai mà lụi tàn <3",
+			images: ['/girl_detail/Linh_Chi.jpg',
 			],
 		},
 		{
-			"title": "Item 4",
-			"description": "lorem skajdjasdsajksahdsahjksahjsa sa jsa hjksahdjksajksahdjksahjksah",
-			images: ['https://images.unsplash.com/photo-1709038459415-8379ce8ae789?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0fHx8ZW58MHx8fHx8',
-				'https://images.unsplash.com/photo-1709038459415-8379ce8ae789?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0fHx8ZW58MHx8fHx8',
-				'https://images.unsplash.com/photo-1709038459415-8379ce8ae789?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0fHx8ZW58MHx8fHx8',
-				'https://images.unsplash.com/photo-1709038459415-8379ce8ae789?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0fHx8ZW58MHx8fHx8',
+			"title": "Nguyễn Thị Hằng",
+			date: '04/01/2001  Ma Kết',
+			"description": "Thân gửi Hằng - vitamin hạnh phúc \n" +
+				"Cảm ơn Hằng vì luôn quan tâm lo lắng tới mọi người, đóng góp những ý tưởng độc đáo, mới lạ\n" +
+				"NorthStudio xin gửi lời chúc tốt đẹp nhất tới tất cả chị em một ngày 8/3 tràn ngập niềm hạnh phúc. mến chúc bạn luôn rạng ngời, xinh đẹp và thành công trong công việc, hạnh phúc bên gia đình và \"\"nửa kia\"\" của mình. ",
+			images: ['/girl_detail/Thu Hang.JPG',
 			],
 		},
-		{
-			"title": "Item 4",
-			images: ['https://images.unsplash.com/photo-1709038459415-8379ce8ae789?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0fHx8ZW58MHx8fHx8',
-				'https://images.unsplash.com/photo-1709038459415-8379ce8ae789?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0fHx8ZW58MHx8fHx8',
-				'https://images.unsplash.com/photo-1709038459415-8379ce8ae789?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0fHx8ZW58MHx8fHx8',
-				'https://images.unsplash.com/photo-1709038459415-8379ce8ae789?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0fHx8ZW58MHx8fHx8',
-			],
-			"description": "lorem skajdjasdsajksahdsahjksahjsa sa jsa hjksahdjksajksahdjksahjksah",
-		},
-		{
-			"title": "Item 4",
-			"description": "lorem skajdjasdsajksahdsahjksahjsa sa jsa hjksahdjksajksahdjksahjksah",
-			images: ['https://images.unsplash.com/photo-1709038459415-8379ce8ae789?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0fHx8ZW58MHx8fHx8',
-				'https://images.unsplash.com/photo-1709038459415-8379ce8ae789?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0fHx8ZW58MHx8fHx8',
-				'https://images.unsplash.com/photo-1709038459415-8379ce8ae789?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0fHx8ZW58MHx8fHx8',
-				'https://images.unsplash.com/photo-1709038459415-8379ce8ae789?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0fHx8ZW58MHx8fHx8',
-			],
-		}
 	]
 
 export default function ListGirl() {
 	return (<div style={{marginBlock: "40px"}}>
 			<h1 style={{textAlign: "center"}}>My NorthStudio's pretty girls 👰‍♀️</h1>
 			{demoList.map((list, index) =>
-				<Item images={list.images} aos={index % 2 !== 0 ? 'fade-left' : 'fade-right'} isReverse={index % 2 !== 0}
-							key={index}/>)}
+				<Item description={list.description} title={list.title} images={list.images}
+							aos={index % 2 !== 0 ? 'fade-left' : 'fade-right'} isReverse={index % 2 !== 0}
+							key={index} date={list.date}/>)}
 		</div>
 	)
 }
 
 
-const Item = ({isReverse, aos, images}: any) => {
+const Item = ({isReverse, aos, images, description, title,date}: any) => {
 	return <div data-aos={aos} style={{marginBlock: "50px"}}>
 		<div style={{marginBottom: "20px"}} className={`box girl-item ${isReverse && 'flex-reverse'}`}>
 			<div className={'girl-item-img'}>
 				<img
-					src={'https://images.unsplash.com/photo-1708443683300-fb5e64c59f93?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3M3x8fGVufDB8fHx8fA%3D%3D'}/>
+					style={{objectFit: "cover"}}
+					src={images[0]}/>
 			</div>
 			<div className={'girl-item-info'} style={{textAlign: isReverse ? "right" : "left", width: "60%"}}>
 				<div style={{position: "relative", display: "inline-block"}}>
-					<h1 style={{marginBottom: "15px"}}>Ho Huu Phuoc</h1>
+					<h1 >{title}</h1>
 					<div style={{position: "absolute", right: -25, top: 35}}>
 						<svg width="90" height="21" viewBox="0 0 150 21" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path fill-rule="evenodd" clip-rule="evenodd"
@@ -96,11 +78,9 @@ const Item = ({isReverse, aos, images}: any) => {
 						</svg>
 					
 					</div>
+				<p style={{marginBottom: "10px"}}>{date}</p>
 				</div>
-				<p style={{fontSize: "18px"}}>Destructuring is a technique that allows you to unpack values from arrays or
-					objects into separate variables.
-					This process involves breaking down complex data structures into simpler parts, making it easier to work with
-					them.</p>
+				<p style={{fontSize: "18px"}}>{description}</p>
 			</div>
 		</div>
 		{/*<div style={{display:"flex",gap:"30px",direction:isReverse ? "rtl" : 'ltr',marginInline:"50px"}}>*/}

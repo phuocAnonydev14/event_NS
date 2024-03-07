@@ -47,6 +47,7 @@ const man = [
   {
     image: "/avatar/Nhân.jpg",
     name: "Nguyễn Anh Nhân",
+    vid: "/vid_love/Common.mp4",
   },
   {
     image: "/avatar/LXNgoc.JPG",
@@ -56,10 +57,12 @@ const man = [
   {
     image: "/avatar/tien.jpg",
     name: "Nguyễn Duy Tiến",
+    vid: "/vid_love/Duy Tien.mp4",
   },
   {
     image: "/avatar/ngoc.jpg",
     name: "Phạm Đức Ngọc",
+    vid: "/vid_love/Common.mp4",
   },
   {
     image: "/avatar/CA.jpg",
@@ -69,34 +72,43 @@ const man = [
   {
     image: "/avatar/quyet.JPG",
     name: "Nguyễn Văn Quyết",
+    vid: "/vid_love/Common.mp4",
   },
   {
     image: "/avatar/Dũng.jpg",
     name: "Hoàng Ngọc Dũng",
+    vid: "/vid_love/Hoàng Dũng.mp4",
+    
   },
   {
     image: "/avatar/hieu.JPG",
     name: "Phan Anh Hiếu",
+    vid: "/vid_love/Phan Hếu.mp4",
   },
   {
     image: "/avatar/mduc.jpg",
     name: "Nguyễn Minh Đức",
+    vid: "/vid_love/Common.mp4",
   },
   {
     image: "/avatar/phuoc.JPG",
     name: "Hồ Hữu Phước",
+    vid: "/vid_love/Hồ Phước.mp4",
   },
   {
     image: "/avatar/manhtuan.jpg",
     name: "Nguyễn Mạnh Tuấn",
+    vid: "/vid_love/Nguyễn Mạnh Tuấn.mp4",
   },
   {
     image: "/avatar/tam.JPG",
     name: "Nguyễn Hữu Tâm",
+    vid: "/vid_love/Hữu Tâm.mp4",
   },
   {
     image: "/avatar/tin.JPG",
     name: "Nguyễn Phú Tín",
+    vid: "/vid_love/Nguyen_Phu_Tin.mp4",
   },
   {
     image: "/avatar/tuananh.jpg",
@@ -106,6 +118,7 @@ const man = [
   {
     image: "/avatar/quaan hoang.JPG",
     name: "Quân Hoàng",
+    vid: "/vid_love/Hoàng Quân.mp4",
   },
   {
     image: "/avatar/duc-be.jpg",
