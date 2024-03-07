@@ -124,7 +124,7 @@ export default function SendLove() {
 
   return (
     <div className={"sl-wrapper"}>
-      <h1>Trao gửi yêu thương</h1>
+      <h1 >Trao gửi yêu thương</h1>
       <p>Bạn muốn nhận lời chúc từ ai nhỉ?</p>
       <p>Hãy “ấn” vào người mà bạn muốn nhận lời chúc nhé</p>
       <div className={"sl-user-boxes"}>
