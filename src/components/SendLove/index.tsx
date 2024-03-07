@@ -11,8 +11,11 @@ import ReactPlayer from "react-player";
 import {
   convertStringToStar,
   getRateImageName,
+  getVideoName,
 } from "../../utils/string.utils.ts";
 import { UserRatingModal } from "../UserRatingModal.tsx";
+import Lottie from "lottie-react";
+import LoadingAnimation from "../../assets/loading.json";
 
 const explosionProps = {
   force: 0.8,
@@ -118,9 +121,6 @@ export default function SendLove() {
   const [isCurrentSelected, setIsCurrentSelected] = useState(false);
   const [ratingM, setRatingM] = useState<boolean>(false);
   const { deviceId, userName } = useDeviceContext();
-  console.log('====================================');
-  console.log(ratingM);
-  console.log('====================================');
 
   return (
     <div className={"sl-wrapper"}>
@@ -177,7 +177,7 @@ export default function SendLove() {
       )}
       {selectedUser && ratingM && (
         <UserRatingModal
-          videoId={"test"}
+          videoId={selectedUser?.vid || "test"}
           onClose={() => setRatingM(false)}
           open={!!ratingM}
         />
@@ -259,19 +259,18 @@ const VidLuvModal = ({
   const [pick, setItem] = useState<number>(-1);
   const { rateVideo } = useRealtimeDB();
   const { userName, deviceId } = useDeviceContext();
-  const [emoji, setEmoji] = useState<boolean>(false);
+  const [emoji, setEmoji] = useState<boolean>(true);
   const [rating, setRating] = useState<RatingProps>();
   const { getRating } = useRealtimeDB();
   const [userRating, setUserRating] = useState<rate[]>([]);
-  let index = 0;
+  const [loading, setLoading] = useState<boolean>(false);
   const fetchRating = async () => {
-    const res = await getRating(deviceId, "test");
+    const res = await getRating(deviceId, (vid && getVideoName(vid)) || "test");
     if (res) {
-      index++;
       setRating(res);
       setItem(res.userRating.id === deviceId ? res.userRating.rating : -1);
-      console.log(index, res);
     }
+    if (loading) setLoading(false);
   };
   useEffect(() => {
     fetchRating();
@@ -280,18 +279,20 @@ const VidLuvModal = ({
     }, 1000);
     return () => clearInterval(interval);
   }, []);
+
   useEffect(() => {
     handleEmoji();
   }, [rating]);
+
   const handleRate = (item: number) => {
     let value = item === pick ? -1 : item;
     setItem(value);
-    rateVideo(deviceId, "test", value, userName);
-    setTimeout(() => {
-      setEmoji(!emoji);
-    }, 600);
+    rateVideo(deviceId, (vid && getVideoName(vid)) || "test", value, userName);
+    setEmoji(rating?.total === 1 && value === -1);
+    setLoading(true);
   };
   const handleEmoji = () => {
+    if (loading) setLoading(false);
     if (!rating) return;
     setUserRating(convertStringToStar(rating.count));
   };
@@ -329,152 +330,176 @@ const VidLuvModal = ({
             controls
           />
         </div>
-        {emoji ? (
-          <div
-            style={{
-              display: "flex",
-              width: "100%",
-            }}
-          >
-            {icon.map(({ alt, src }, index) => {
-              return (
-                <button
-                  onClick={() => handleRate(index)}
-                  key={index}
-                  className="rating"
-                  style={{
-                    outline: "none",
-                    border: "none",
-                    background: "none",
-                  }}
-                >
-                  {pick === index ? (
-                    <img
-                      alt={alt}
-                      src={src}
-                      style={{
-                        width: "50px",
-                        height: "50px",
-                        scale: "1.2",
-                        translate: "0px -14px",
-                      }}
-                    />
-                  ) : (
-                    <img
-                      alt={alt}
-                      src={src}
-                      style={{
-                        width: "50px",
-                        height: "50px",
-                      }}
-                    />
-                  )}
-                </button>
-              );
-            })}
-          </div>
-        ) : (
-          <button
-            onClick={() => setEmoji(!emoji)}
-            style={{
-              display: "flex",
-              width: "100%",
-              borderWidth: 0,
-              flexDirection: "row",
-              alignItems: "center",
-              padding: "0px 12px",
-              backgroundColor: "white",
-            }}
-          >
-            <p
+        {!loading ? (
+          emoji ? (
+            <div
               style={{
-                margin: 0,
-                padding: 0,
-                fontSize: 24,
-                fontWeight: "bold",
-                marginRight: 16,
+                display: "flex",
+                width: "100%",
+                height: "50px",
               }}
             >
-              {rating?.total}
-            </p>
-            {rating && (
-              <div
-                style={{
-                  display: "flex",
-                }}
-              >
-                {userRating.map((item, index) => {
-                  return (
-                    <img
-                      key={index}
-                      src={getRateImageName({ name: item })}
-                      alt={getRateImageName({ name: item })}
+              {icon.map(({ alt, src }, index) => {
+                return (
+                  <button
+                    onClick={() => handleRate(index)}
+                    key={index}
+                    className="rating"
+                    style={{
+                      outline: "none",
+                      border: "none",
+                      background: "none",
+                    }}
+                  >
+                    {pick === index ? (
+                      <img
+                        alt={alt}
+                        src={src}
+                        style={{
+                          width: "50px",
+                          height: "50px",
+                          scale: "1.4",
+                          translate: "0px -15px",
+                        }}
+                      />
+                    ) : (
+                      <img
+                        alt={alt}
+                        src={src}
+                        style={{
+                          width: "50px",
+                          height: "50px",
+                        }}
+                      />
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+          ) : (
+            <button
+              onClick={() => setEmoji(true)}
+              style={{
+                display: "flex",
+                width: "100%",
+                borderWidth: 0,
+                flexDirection: "row",
+                alignItems: "center",
+                padding: "0px 12px",
+                backgroundColor: "white",
+                height: "50px",
+              }}
+            >
+              {userRating.length > 0 && (
+                <p
+                  style={{
+                    margin: 0,
+                    padding: 0,
+                    fontSize: 24,
+                    fontWeight: "bold",
+                    marginRight: 16,
+                  }}
+                >
+                  {rating?.total}
+                </p>
+              )}
+              {rating && (
+                <div
+                  style={{
+                    display: "flex",
+                  }}
+                >
+                  {userRating.map((item, index) => {
+                    return (
+                      <img
+                        key={index}
+                        src={getRateImageName({ name: item })}
+                        alt={getRateImageName({ name: item })}
+                        style={{
+                          width: "50px",
+                          height: "50px",
+                          marginRight: 8,
+                          translate: `-${index * 25}px 0px`,
+                          backgroundColor: "white",
+                          borderRadius: "100%",
+                          borderWidth: 0.5,
+                          borderColor: "#00000030",
+                          borderStyle: "solid",
+                          padding: "4px",
+                        }}
+                      />
+                    );
+                  })}
+                  {userRating.length > 0 && (
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setRatingModal();
+                      }}
                       style={{
                         width: "50px",
                         height: "50px",
                         marginRight: 8,
-                        translate: `-${index * 25}px 0px`,
+                        translate: `-${userRating.length * 25}px 0px`,
                         backgroundColor: "white",
                         borderRadius: "100%",
                         borderWidth: 0.5,
                         borderColor: "#00000030",
                         borderStyle: "solid",
                         padding: "4px",
+                        display: "flex",
+                        flexDirection: "row",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        gap: 3,
                       }}
-                    />
-                  );
-                })}
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setRatingModal();
-                  }}
-                  style={{
-                    width: "50px",
-                    height: "50px",
-                    marginRight: 8,
-                    translate: `-${userRating.length * 25}px 0px`,
-                    backgroundColor: "white",
-                    borderRadius: "100%",
-                    borderWidth: 0.5,
-                    borderColor: "#00000030",
-                    borderStyle: "solid",
-                    padding: "4px",
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    gap: 3,
-                  }}
-                >
-                  <div
-                    style={{
-                      width: 5,
-                      height: 5,
-                      borderRadius: "100%",
-                      backgroundColor: "black",
-                    }}
-                  />
-                  <div
-                    style={{
-                      width: 5,
-                      height: 5,
-                      borderRadius: "100%",
-                      backgroundColor: "black",
-                    }}
-                  />
-                  <div
-                    style={{
-                      width: 5,
-                      height: 5,
-                      borderRadius: "100%",
-                      backgroundColor: "black",
-                    }}
-                  />
-                </button>
-              </div>
-            )}
-          </button>
+                    >
+                      <div
+                        style={{
+                          width: 5,
+                          height: 5,
+                          borderRadius: "100%",
+                          backgroundColor: "black",
+                        }}
+                      />
+                      <div
+                        style={{
+                          width: 5,
+                          height: 5,
+                          borderRadius: "100%",
+                          backgroundColor: "black",
+                        }}
+                      />
+                      <div
+                        style={{
+                          width: 5,
+                          height: 5,
+                          borderRadius: "100%",
+                          backgroundColor: "black",
+                        }}
+                      />
+                    </button>
+                  )}
+                </div>
+              )}
+            </button>
+          )
+        ) : (
+          <div
+            style={{
+              width: "100%",
+              height: 50,
+            }}
+          >
+            <div
+              style={{
+                width: 50,
+                height: 50,
+              }}
+            >
+              <Lottie animationData={LoadingAnimation} loop={true} />
+            </div>
+          </div>
         )}
       </div>
     </Modal>

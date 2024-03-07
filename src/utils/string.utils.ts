@@ -54,3 +54,8 @@ export const getRateImageName = ({
     }
   }
 };
+
+export const getVideoName = (value: string) => {
+  let string = value.replace(/\/vid_love\//, "").replace(/\s/g, "_").replace(/\.[^/.]+$/, "").toLowerCase()
+  return string
+};

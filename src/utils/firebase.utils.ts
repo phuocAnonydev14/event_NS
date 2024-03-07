@@ -193,7 +193,7 @@ export const useRealtimeDB = () => {
   };
 
   const getRating = async (deviceId: string, videoId: string) => {
-    const { data } = await checkDatabase({ name: `rating`, videoId });
+    const { data, dbRef } = await checkDatabase({ name: `rating`, videoId });
     let value = {
       count: {
         veryLow: 0,
@@ -247,7 +247,7 @@ export const useRealtimeDB = () => {
   const getAllRating = async (videoId: string) => {
     const { data } = await checkDatabase({ name: `rating`, videoId });
     return data;
-  }
+  };
 
   return {
     addDevice,
@@ -257,6 +257,6 @@ export const useRealtimeDB = () => {
     checkDatabase,
     rateVideo,
     getRating,
-    getAllRating
+    getAllRating,
   };
 };

@@ -40,6 +40,7 @@ export const UserRatingModal = ({ videoId, onClose, open }: Props) => {
             {rating?.map((item, index) => {
               return (
                 <div
+                  key={index}
                   style={{
                     display: "flex",
                     justifyContent: "space-between",
@@ -50,7 +51,6 @@ export const UserRatingModal = ({ videoId, onClose, open }: Props) => {
                 >
                   <p>{item.username}</p>
                   <img
-                    key={index}
                     src={getRateImageName({ number: item.rating })}
                     alt={getRateImageName({ number: item.rating })}
                     style={{
@@ -72,7 +72,7 @@ export const UserRatingModal = ({ videoId, onClose, open }: Props) => {
         </div>
       ),
       onOk: onClose,
-      open
+      open,
     });
   };
 
