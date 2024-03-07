@@ -2,7 +2,6 @@ import "./SendLove.css";
 import { useEffect, useState } from "react";
 import ConfettiExplosion from "react-confetti-explosion";
 import { toast } from "react-toastify";
-import { UrgeWithPleasureComponent } from "../TimerCoutdown.tsx";
 import { Modal } from "antd";
 import { useRealtimeDB } from "../../utils/firebase.utils.ts";
 import { useDeviceContext } from "../../providers/DeviceProvider.tsx";
@@ -13,7 +12,6 @@ import {
   getRateImageName,
   getVideoName,
 } from "../../utils/string.utils.ts";
-import { UserRatingModal } from "../UserRatingModal.tsx";
 import Lottie from "lottie-react";
 import LoadingAnimation from "../../assets/loading.json";
 
@@ -119,12 +117,11 @@ const man = [
 export default function SendLove() {
   const [selectedUser, setSelectedUser] = useState<any>(null);
   const [isCurrentSelected, setIsCurrentSelected] = useState(false);
-  const [ratingM, setRatingM] = useState<boolean>(false);
   const { deviceId, userName } = useDeviceContext();
 
   return (
     <div className={"sl-wrapper"}>
-      <h1 >Trao gửi yêu thương</h1>
+      <h1>Trao gửi yêu thương</h1>
       <p>Bạn muốn nhận lời chúc từ ai nhỉ?</p>
       <p>Hãy “ấn” vào người mà bạn muốn nhận lời chúc nhé</p>
       <div className={"sl-user-boxes"}>
@@ -172,14 +169,6 @@ export default function SendLove() {
           open={!!selectedUser}
           onClose={() => setSelectedUser(null)}
           name={selectedUser.name}
-          setRatingModal={() => setRatingM(true)}
-        />
-      )}
-      {selectedUser && ratingM && (
-        <UserRatingModal
-          videoId={selectedUser?.vid || "test"}
-          onClose={() => setRatingM(false)}
-          open={!!ratingM}
         />
       )}
     </div>
@@ -247,23 +236,18 @@ interface VidLuvModalProps {
   vid: string;
   name: string;
   ratingValue?: RatingProps;
-  setRatingModal: () => void;
 }
-const VidLuvModal = ({
-  open,
-  onClose,
-  vid,
-  name,
-  setRatingModal,
-}: VidLuvModalProps) => {
+const VidLuvModal = ({ open, onClose, vid, name }: VidLuvModalProps) => {
   const [pick, setItem] = useState<number>(-1);
-  const { rateVideo } = useRealtimeDB();
+  const { rateVideo, getAllRating } = useRealtimeDB();
   const { userName, deviceId } = useDeviceContext();
   const [emoji, setEmoji] = useState<boolean>(true);
   const [rating, setRating] = useState<RatingProps>();
   const { getRating } = useRealtimeDB();
   const [userRating, setUserRating] = useState<rate[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const [allRating, setAllRating] = useState<userRating[]>([]);
+  const [comment, setComment] = useState<boolean>(false);
   const fetchRating = async () => {
     const res = await getRating(deviceId, (vid && getVideoName(vid)) || "test");
     if (res) {
@@ -271,6 +255,13 @@ const VidLuvModal = ({
       setItem(res.userRating.id === deviceId ? res.userRating.rating : -1);
     }
     if (loading) setLoading(false);
+    getAllRating((vid && getVideoName(vid)) || "test").then((res) => {
+      if (res) {
+        setAllRating(Object.values(res));
+      } else {
+        setAllRating([]);
+      }
+    });
   };
   useEffect(() => {
     fetchRating();
@@ -296,6 +287,7 @@ const VidLuvModal = ({
     if (!rating) return;
     setUserRating(convertStringToStar(rating.count));
   };
+
   return (
     <Modal
       centered
@@ -303,6 +295,7 @@ const VidLuvModal = ({
       open={open}
       onCancel={onClose}
       onOk={onClose}
+      width={1000}
     >
       <div
         style={{
@@ -311,24 +304,147 @@ const VidLuvModal = ({
           flexDirection: "column",
           alignItems: "center",
           gap: 24,
+          height: 500,
         }}
       >
         <div
           style={{
+            display: "flex",
+            flexDirection: "row",
             width: "100%",
-            borderWidth: 1,
-            borderColor: "#00000030",
-            borderStyle: "solid",
-            borderRadius: 10,
-            overflow: "hidden",
+            gap: 16,
+            flex: 1,
+            maxHeight: 400,
           }}
         >
-          <ReactPlayer
-            width={"100%"}
-            playing
-            url={vid || "/vid_love/file_example_MP4_480_1_5MG.mp4"}
-            controls
-          />
+          <div
+            style={{
+              width: "100%",
+              minWidth: 500,
+              borderWidth: 1,
+              borderColor: "#00000030",
+              borderStyle: "solid",
+              borderRadius: 10,
+              overflow: "hidden",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              flex: 2,
+            }}
+          >
+            <ReactPlayer
+              width={"100%"}
+              playing
+              url={vid || "/vid_love/file_example_MP4_480_1_5MG.mp4"}
+              controls
+            />
+          </div>
+          <div
+            style={{
+              display: "flex",
+              borderWidth: 1,
+              borderColor: "#00000030",
+              borderStyle: "solid",
+              borderRadius: 10,
+              height: "100%",
+              flex: 1,
+            }}
+          >
+            <div
+              style={{
+                overflowY: "auto",
+                padding: "0px 12px",
+
+                width: "100%",
+              }}
+            >
+              {allRating.length > 0 ? (
+                allRating.map((item, index) => {
+                  return (
+                    <div
+                      key={index}
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        padding: "8px 0",
+                        borderBottom: "1px solid #e8e8e8",
+                        alignItems: "center",
+                      }}
+                    >
+                      <p>{item.username}</p>
+                      <img
+                        src={getRateImageName({ number: item.rating })}
+                        alt={getRateImageName({ number: item.rating })}
+                        style={{
+                          width: "50px",
+                          height: "50px",
+                          marginRight: 8,
+                          backgroundColor: "white",
+                          borderRadius: "100%",
+                          borderWidth: 0.5,
+                          borderColor: "#00000030",
+                          borderStyle: "solid",
+                          padding: "4px",
+                        }}
+                      />
+                    </div>
+                  );
+                })
+              ) : (
+                <div
+                  style={{
+                    padding: "12px 0",
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      padding: "20px",
+                      background: "#f0f0f0",
+                    }}
+                  >
+                    <p
+                      style={{
+                        fontSize: "18px",
+                        lineHeight: "1.5",
+                        color: "#333",
+                        marginBottom: "15px",
+                      }}
+                    >
+                      Các Lady thân mến,
+                      <br />
+                      Chúc mừng ngày Quốc tế Phụ nữ 8/3! Hôm nay, chúng ta có
+                      một điều đặc biệt từ {name}, một đoạn video ý nghĩa dành
+                      riêng cho tất cả các Lady tuyệt vời của North Studio. Bạn
+                      nam của chúng ta đã dành rất nhiều tâm huyết để thực hiện
+                      đoạn video này, và chắc chắn đây là một món quà ý nghĩa mà
+                      chúng ta sẽ nhớ mãi.
+                      <br />
+                      Hãy thể hiện cảm xúc của bạn bằng cách thả react bên dưới
+                      video này. Mỗi biểu tượng "react" nhỏ bé cũng chính là một
+                      động lực lớn lao đến trái tim các chàng trai bé nhỏ của
+                      chúng ta. Họ có ý định truyền đạt tình cảm chân thành và
+                      tôn trọng sâu sắc đối với các Lady tuyệt vời nhất.
+                      <br />
+                      Dù {name} có thể có những lời nói và cử chỉ vụng về, nhưng
+                      điều quan trọng là sự chân thành và tâm huyết đằng sau mỗi
+                      hành động. Video này là một cách ý nghĩa để thể hiện lòng
+                      biết ơn và tôn trọng đối với sự đóng góp của các Lady
+                      trong công ty chúng ta.
+                      <br />
+                      Chúng ta là một gia đình, và mỗi thành viên đều quan
+                      trọng. Hãy cùng nhau chia sẻ niềm vui và tạo ra những kỷ
+                      niệm đáng nhớ trong ngày đặc biệt này. Cảm ơn mọi người đã
+                      làm cho không khí tại North Studio trở nên ấm áp và tràn
+                      đầy tình cảm.
+                    </p>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
         {!loading ? (
           emoji ? (
@@ -434,7 +550,6 @@ const VidLuvModal = ({
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
-                        setRatingModal();
                       }}
                       style={{
                         width: "50px",
