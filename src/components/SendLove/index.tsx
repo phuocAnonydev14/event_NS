@@ -14,6 +14,7 @@ import {
 } from "../../utils/string.utils.ts";
 import Lottie from "lottie-react";
 import LoadingAnimation from "../../assets/loading.json";
+import {images} from "../ImageGallery/images.ts";
 
 const explosionProps = {
   force: 0.8,
@@ -86,7 +87,7 @@ const man = [
     vid: "/vid_love/Phan Hếu.mp4",
   },
   {
-    image: "/avatar/mduc.jpg",
+    image: "/avatar/Đức-mobile.jpg",
     name: "Nguyễn Minh Đức",
     vid: "/vid_love/Common.mp4",
   },
@@ -131,14 +132,19 @@ export default function SendLove() {
   const [selectedUser, setSelectedUser] = useState<any>(null);
   const [isCurrentSelected, setIsCurrentSelected] = useState(false);
   const { deviceId, userName } = useDeviceContext();
-
+  const [manList,setManList] = useState(man)
+  
+  useEffect(() => {
+    setManList(man.sort(() => Math.random() - 0.5))
+  }, []);
+  
   return (
     <div className={"sl-wrapper"}>
       <h1>Trao gửi yêu thương</h1>
       <p>Bạn muốn nhận lời chúc từ ai nhỉ?</p>
       <p>Hãy “ấn” vào người mà bạn muốn nhận lời chúc nhé</p>
       <div className={"sl-user-boxes"}>
-        {man.map((item, index) => {
+        {manList.map((item, index) => {
           return (
             <div
               onClick={() => {
