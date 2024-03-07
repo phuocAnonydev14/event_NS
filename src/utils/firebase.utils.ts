@@ -244,6 +244,11 @@ export const useRealtimeDB = () => {
     };
   };
 
+  const getAllRating = async (videoId: string) => {
+    const { data } = await checkDatabase({ name: `rating`, videoId });
+    return data;
+  }
+
   return {
     addDevice,
     addService,
@@ -252,5 +257,6 @@ export const useRealtimeDB = () => {
     checkDatabase,
     rateVideo,
     getRating,
+    getAllRating
   };
 };

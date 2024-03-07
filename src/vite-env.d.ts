@@ -19,11 +19,12 @@ interface User {
 interface RatingProps {
 	total: number,
 	count: ratingValue,
-	userRating: {
-        id: string,
-        rating: number,
-        username: string
-    },
+	userRating: userRating
+}
+type userRating = {
+	id: string,
+	rating: number,
+	username: string
 }
 type ratingValue = {
 	veryLow: number,
@@ -32,3 +33,4 @@ type ratingValue = {
 	high: number,
 	veryHigh: number
 }
+type rate = "veryLow"|"low"|"medium"|"high"|"veryHigh"

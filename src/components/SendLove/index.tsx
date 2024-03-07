@@ -8,6 +8,11 @@ import { useRealtimeDB } from "../../utils/firebase.utils.ts";
 import { useDeviceContext } from "../../providers/DeviceProvider.tsx";
 import { NotiWarning } from "../Warning.tsx";
 import ReactPlayer from "react-player";
+import {
+  convertStringToStar,
+  getRateImageName,
+} from "../../utils/string.utils.ts";
+import { UserRatingModal } from "../UserRatingModal.tsx";
 
 const explosionProps = {
   force: 0.8,
@@ -109,7 +114,11 @@ const man = [
 export default function SendLove() {
   const [selectedUser, setSelectedUser] = useState<any>(null);
   const [isCurrentSelected, setIsCurrentSelected] = useState(false);
+  const [ratingM, setRatingM] = useState<boolean>(false);
   const { deviceId, userName } = useDeviceContext();
+  console.log('====================================');
+  console.log(ratingM);
+  console.log('====================================');
 
   return (
     <div className={"sl-wrapper"}>
@@ -161,6 +170,14 @@ export default function SendLove() {
           open={!!selectedUser}
           onClose={() => setSelectedUser(null)}
           name={selectedUser.name}
+          setRatingModal={() => setRatingM(true)}
+        />
+      )}
+      {selectedUser && ratingM && (
+        <UserRatingModal
+          videoId={"test"}
+          onClose={() => setRatingM(false)}
+          open={!!ratingM}
         />
       )}
     </div>
@@ -228,23 +245,22 @@ interface VidLuvModalProps {
   vid: string;
   name: string;
   ratingValue?: RatingProps;
+  setRatingModal: () => void;
 }
-
-const VidLuvModal = ({ open, onClose, vid, name }: VidLuvModalProps) => {
+const VidLuvModal = ({
+  open,
+  onClose,
+  vid,
+  name,
+  setRatingModal,
+}: VidLuvModalProps) => {
   const [pick, setItem] = useState<number>(-1);
   const { rateVideo } = useRealtimeDB();
   const { userName, deviceId } = useDeviceContext();
-  const handleRate = (item: number) => {
-    let value = item === pick ? -1 : item;
-    setItem(value);
-    rateVideo(deviceId, "test", value, userName);
-    setTimeout(() => {
-      setEmoji(!emoji);
-    }, 600);
-  };
   const [emoji, setEmoji] = useState<boolean>(false);
   const [rating, setRating] = useState<RatingProps>();
   const { getRating } = useRealtimeDB();
+  const [userRating, setUserRating] = useState<rate[]>([]);
   let index = 0;
   const fetchRating = async () => {
     const res = await getRating(deviceId, "test");
@@ -262,7 +278,21 @@ const VidLuvModal = ({ open, onClose, vid, name }: VidLuvModalProps) => {
     }, 1000);
     return () => clearInterval(interval);
   }, []);
-
+  useEffect(() => {
+    handleEmoji();
+  }, [rating]);
+  const handleRate = (item: number) => {
+    let value = item === pick ? -1 : item;
+    setItem(value);
+    rateVideo(deviceId, "test", value, userName);
+    setTimeout(() => {
+      setEmoji(!emoji);
+    }, 600);
+  };
+  const handleEmoji = () => {
+    if (!rating) return;
+    setUserRating(convertStringToStar(rating.count));
+  };
   return (
     <Modal
       centered
@@ -350,7 +380,8 @@ const VidLuvModal = ({ open, onClose, vid, name }: VidLuvModalProps) => {
               borderWidth: 0,
               flexDirection: "row",
               alignItems: "center",
-              padding: "0px 16px",
+              padding: "0px 12px",
+              backgroundColor: "white",
             }}
           >
             <p
@@ -364,41 +395,81 @@ const VidLuvModal = ({ open, onClose, vid, name }: VidLuvModalProps) => {
             >
               {rating?.total}
             </p>
-            {!(rating && rating.total > 1) ? (
+            {rating && (
               <div
                 style={{
                   display: "flex",
-                  backgroundColor: "gray",
                 }}
               >
-                <div
+                {userRating.map((item, index) => {
+                  return (
+                    <img
+                      key={index}
+                      src={getRateImageName({ name: item })}
+                      alt={getRateImageName({ name: item })}
+                      style={{
+                        width: "50px",
+                        height: "50px",
+                        marginRight: 8,
+                        translate: `-${index * 25}px 0px`,
+                        backgroundColor: "white",
+                        borderRadius: "100%",
+                        borderWidth: 0.5,
+                        borderColor: "#00000030",
+                        borderStyle: "solid",
+                        padding: "4px",
+                      }}
+                    />
+                  );
+                })}
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setRatingModal();
+                  }}
                   style={{
                     width: "50px",
                     height: "50px",
-                    borderRadius: 50,
-                    background: "blue",
+                    marginRight: 8,
+                    translate: `-${userRating.length * 25}px 0px`,
+                    backgroundColor: "white",
+                    borderRadius: "100%",
+                    borderWidth: 0.5,
+                    borderColor: "#00000030",
+                    borderStyle: "solid",
+                    padding: "4px",
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    gap: 3,
                   }}
-                ></div>
-                <div
-                  style={{
-                    width: "50px",
-                    height: "50px",
-                    borderRadius: 50,
-                    background: "red",
-                    translate: "-25px 0px",
-                  }}
-                ></div>
-              </div>
-            ) : (
-              <div>
-                <div
-                  style={{
-                    width: "50px",
-                    height: "50px",
-                    borderRadius: 50,
-                    background: "red",
-                  }}
-                ></div>
+                >
+                  <div
+                    style={{
+                      width: 5,
+                      height: 5,
+                      borderRadius: "100%",
+                      backgroundColor: "black",
+                    }}
+                  />
+                  <div
+                    style={{
+                      width: 5,
+                      height: 5,
+                      borderRadius: "100%",
+                      backgroundColor: "black",
+                    }}
+                  />
+                  <div
+                    style={{
+                      width: 5,
+                      height: 5,
+                      borderRadius: "100%",
+                      backgroundColor: "black",
+                    }}
+                  />
+                </button>
               </div>
             )}
           </button>
