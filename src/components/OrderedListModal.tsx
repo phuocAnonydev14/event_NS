@@ -9,7 +9,6 @@ export const OrderedListModal = ({open, onClose}: any) => {
 	useEffect(() => {
 		const fetchServices = async () => {
 			const res = await getAllService()
-			console.log({res})
 			const formattedResponse = Object.values(res).map((item: any) => ({
 			name: item.value.name,
 			water: item.value.order,
@@ -18,7 +17,6 @@ export const OrderedListModal = ({open, onClose}: any) => {
 			}))
 			setOrderList(formattedResponse)
 		}
-		
 		fetchServices().finally()
 	}, []);
 	

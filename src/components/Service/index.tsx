@@ -32,7 +32,7 @@ const man = [
 		image: '/avatar/ngoc.jpg',
 		name: 'Phạm Đức Ngọc'
 	}, {
-		image: '/avatar/CA.PNG',
+		image: '/avatar/CA.jpg',
 		name: 'Cao Thế Anh'
 	}, {
 		image: '/avatar/quyet.JPG',
