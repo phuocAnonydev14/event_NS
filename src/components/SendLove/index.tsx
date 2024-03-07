@@ -339,112 +339,115 @@ const VidLuvModal = ({ open, onClose, vid, name }: VidLuvModalProps) => {
               controls
             />
           </div>
-          <div
-            style={{
-              display: "flex",
-              borderWidth: 1,
-              borderColor: "#00000030",
-              borderStyle: "solid",
-              borderRadius: 10,
-              height: "100%",
-              flex: 1,
-            }}
-          >
-            <div
-              style={{
-                overflowY: "auto",
-                padding: "0px 12px",
-
-                width: "100%",
-              }}
-            >
-              {allRating.length > 0 ? (
-                allRating.map((item, index) => {
-                  return (
-                    <div
-                      key={index}
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        padding: "8px 0",
-                        borderBottom: "1px solid #e8e8e8",
-                        alignItems: "center",
-                      }}
-                    >
-                      <p>{item.username}</p>
-                      <img
-                        src={getRateImageName({ number: item.rating })}
-                        alt={getRateImageName({ number: item.rating })}
-                        style={{
-                          width: "50px",
-                          height: "50px",
-                          marginRight: 8,
-                          backgroundColor: "white",
-                          borderRadius: "100%",
-                          borderWidth: 0.5,
-                          borderColor: "#00000030",
-                          borderStyle: "solid",
-                          padding: "4px",
-                        }}
-                      />
-                    </div>
-                  );
-                })
-              ) : (
+          {
+            comment && (
+              <div
+                style={{
+                  display: "flex",
+                  borderWidth: 1,
+                  borderColor: "#00000030",
+                  borderStyle: "solid",
+                  borderRadius: 10,
+                  height: "100%",
+                  flex: 1,
+                }}
+              >
                 <div
                   style={{
-                    padding: "12px 0",
+                    overflowY: "auto",
+                    padding: "0px 12px",
+                    width: "100%",
                   }}
                 >
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      padding: "20px",
-                      background: "#f0f0f0",
-                    }}
-                  >
-                    <p
+                  {allRating.length > 0 ? (
+                    allRating.map((item, index) => {
+                      return (
+                        <div
+                          key={index}
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            padding: "8px 0",
+                            borderBottom: "1px solid #e8e8e8",
+                            alignItems: "center",
+                          }}
+                        >
+                          <p>{item.username}</p>
+                          <img
+                            src={getRateImageName({ number: item.rating })}
+                            alt={getRateImageName({ number: item.rating })}
+                            style={{
+                              width: "50px",
+                              height: "50px",
+                              marginRight: 8,
+                              backgroundColor: "white",
+                              borderRadius: "100%",
+                              borderWidth: 0.5,
+                              borderColor: "#00000030",
+                              borderStyle: "solid",
+                              padding: "4px",
+                            }}
+                          />
+                        </div>
+                      );
+                    })
+                  ) : (
+                    <div
                       style={{
-                        fontSize: "18px",
-                        lineHeight: "1.5",
-                        color: "#333",
-                        marginBottom: "15px",
+                        padding: "12px 0",
                       }}
                     >
-                      Các Lady thân mến,
-                      <br />
-                      Chúc mừng ngày Quốc tế Phụ nữ 8/3! Hôm nay, chúng ta có
-                      một điều đặc biệt từ {name}, một đoạn video ý nghĩa dành
-                      riêng cho tất cả các Lady tuyệt vời của North Studio. Bạn
-                      nam của chúng ta đã dành rất nhiều tâm huyết để thực hiện
-                      đoạn video này, và chắc chắn đây là một món quà ý nghĩa mà
-                      chúng ta sẽ nhớ mãi.
-                      <br />
-                      Hãy thể hiện cảm xúc của bạn bằng cách thả react bên dưới
-                      video này. Mỗi biểu tượng "react" nhỏ bé cũng chính là một
-                      động lực lớn lao đến trái tim các chàng trai bé nhỏ của
-                      chúng ta. Họ có ý định truyền đạt tình cảm chân thành và
-                      tôn trọng sâu sắc đối với các Lady tuyệt vời nhất.
-                      <br />
-                      Dù {name} có thể có những lời nói và cử chỉ vụng về, nhưng
-                      điều quan trọng là sự chân thành và tâm huyết đằng sau mỗi
-                      hành động. Video này là một cách ý nghĩa để thể hiện lòng
-                      biết ơn và tôn trọng đối với sự đóng góp của các Lady
-                      trong công ty chúng ta.
-                      <br />
-                      Chúng ta là một gia đình, và mỗi thành viên đều quan
-                      trọng. Hãy cùng nhau chia sẻ niềm vui và tạo ra những kỷ
-                      niệm đáng nhớ trong ngày đặc biệt này. Cảm ơn mọi người đã
-                      làm cho không khí tại North Studio trở nên ấm áp và tràn
-                      đầy tình cảm.
-                    </p>
-                  </div>
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          alignItems: "center",
+                          padding: "20px",
+                          background: "#f0f0f0",
+                        }}
+                      >
+                        <p
+                          style={{
+                            fontSize: "18px",
+                            lineHeight: "1.5",
+                            color: "#333",
+                            marginBottom: "15px",
+                          }}
+                        >
+                          Các Lady thân mến,
+                          <br />
+                          Chúc mừng ngày Quốc tế Phụ nữ 8/3! Hôm nay, chúng ta có
+                          một điều đặc biệt từ {name}, một đoạn video ý nghĩa dành
+                          riêng cho tất cả các Lady tuyệt vời của North Studio. Bạn
+                          nam của chúng ta đã dành rất nhiều tâm huyết để thực hiện
+                          đoạn video này, và chắc chắn đây là một món quà ý nghĩa mà
+                          chúng ta sẽ nhớ mãi.
+                          <br />
+                          Hãy thể hiện cảm xúc của bạn bằng cách thả react bên dưới
+                          video này. Mỗi biểu tượng "react" nhỏ bé cũng chính là một
+                          động lực lớn lao đến trái tim các chàng trai bé nhỏ của
+                          chúng ta. Họ có ý định truyền đạt tình cảm chân thành và
+                          tôn trọng sâu sắc đối với các Lady tuyệt vời nhất.
+                          <br />
+                          Dù {name} có thể có những lời nói và cử chỉ vụng về, nhưng
+                          điều quan trọng là sự chân thành và tâm huyết đằng sau mỗi
+                          hành động. Video này là một cách ý nghĩa để thể hiện lòng
+                          biết ơn và tôn trọng đối với sự đóng góp của các Lady
+                          trong công ty chúng ta.
+                          <br />
+                          Chúng ta là một gia đình, và mỗi thành viên đều quan
+                          trọng. Hãy cùng nhau chia sẻ niềm vui và tạo ra những kỷ
+                          niệm đáng nhớ trong ngày đặc biệt này. Cảm ơn mọi người đã
+                          làm cho không khí tại North Studio trở nên ấm áp và tràn
+                          đầy tình cảm.
+                        </p>
+                      </div>
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
-          </div>
+              </div>
+            )
+          }
         </div>
         {!loading ? (
           emoji ? (
@@ -550,6 +553,7 @@ const VidLuvModal = ({ open, onClose, vid, name }: VidLuvModalProps) => {
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
+                        setComment(!comment);
                       }}
                       style={{
                         width: "50px",
