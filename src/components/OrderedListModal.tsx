@@ -46,6 +46,7 @@ export const OrderedListModal = ({open, onClose}: any) => {
 					}
 				]}
 				dataSource={orderList}
+				pagination={{pageSize:5}}
 			/>
 		</div>
 	</Modal>
