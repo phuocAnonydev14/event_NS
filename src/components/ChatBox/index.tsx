@@ -15,7 +15,7 @@ import {faRocketchat} from "@fortawesome/free-brands-svg-icons";
 export default function ChatBox() {
 	
 	
-	const {chatList, setAmountUnread, amountUnread} = useChatContext()
+	const {chatList, setAmountUnread, amountUnread,setChatList} = useChatContext()
 	const chatRef = useRef<any>(null)
 	const [chatVal, setChatVal] = useState('')
 	const {sendNotification} = useMessaging()
@@ -23,6 +23,8 @@ export default function ChatBox() {
 	const {deviceId} = useDeviceContext()
 	const contentRef = useRef<HTMLDivElement>(null)
 	const [isCollapsed, setIsCollapsed] = useState(true)
+	
+	console.log([...new Set(chatList)])
 	
 	const handleSendMessage = () => {
 		if (!chatVal) return
@@ -50,7 +52,6 @@ export default function ChatBox() {
 			setAmountUnread(0)
 		}
 	}, [isCollapsed]);
-
 	
 	
 	return <>

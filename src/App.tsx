@@ -37,7 +37,7 @@ function App() {
 	const {addDevice, addService,getRating} = useRealtimeDB();
 	const {setDeviceId, deviceId} = useDeviceContext()
 	const {sendNotification} = useMessaging();
-	const {setChatList, setAmountUnread} = useChatContext()
+	const {setChatList, setAmountUnread,chatList} = useChatContext()
 	const [openOrderList, setOpenOrderList] = useState(false);
 	
 	const handleAddFirebase = async () => {
@@ -53,6 +53,24 @@ function App() {
 			title: `${selectedOrder}, ${selectedService.name} từ anh ${selectedService.userAction} 🥰`
 		});
 	}
+	
+	
+	const handleUniqueArray = () => {
+		var uniqueDescriptions: any = {};
+
+// Mảng mới chứa các đối tượng duy nhất
+		var uniqueObjects:any = [];
+
+// Lọc các đối tượng duy nhất
+		chatList.forEach(function(obj: any) {
+			if (!uniqueDescriptions.hasOwnProperty(obj.description)) {
+				uniqueDescriptions[obj.content] = true;
+				uniqueObjects.push(obj);
+			}
+		});
+		
+		setChatList(uniqueObjects)
+	}
 
 	useEffect(() => {
 		AOS.init({
@@ -60,6 +78,23 @@ function App() {
 			delay: 200,
 		});
 		requestPermission();
+		
+		onMessage(messaging, (payload: any) => {
+			if (!(payload.data['gcm.notification.type'] === "chat")) {
+			console.log("come")
+			console.log('Message received.', payload);
+			toast(<Message notification={payload.notification}/>);
+			return
+			}
+			console.log({setChatList});
+			setChatList((prev: any) => ([...prev, {
+				name: payload.data['gcm.notification.name'],
+				content: payload.data['gcm.notification.content'],
+				time: Date.now()
+			}]))
+			handleUniqueArray()
+			setAmountUnread((prev:any) => prev + 1)
+		});
 	}, [deviceId])
 	
 	async function requestPermission() {
@@ -78,20 +113,7 @@ function App() {
 		}
 	}
 	
-	onMessage(messaging, (payload: any) => {
-		if (!(payload.data['gcm.notification.type'] === "chat")) {
-			console.log('Message received.', payload);
-			toast(<Message notification={payload.notification}/>);
-			return
-		}
-		console.log({setChatList});
-		setChatList((prev: any) => ([...prev, {
-			name: payload.data['gcm.notification.name'],
-			content: payload.data['gcm.notification.content'],
-			time: Date.now()
-		}]))
-		setAmountUnread((prev:any) => prev + 1)
-	});
+	
 	
 	
 	return (
@@ -115,7 +137,7 @@ function App() {
 					</div>
 				</div>
 			</SmoothScroll>
-			<ChatBox/>
+			{/*<ChatBox/>*/}
 			<HeartBeat/>
 			<OrderedListModal open={openOrderList} onClose={() => setOpenOrderList(false)}/>
 		</div>

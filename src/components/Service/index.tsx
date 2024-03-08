@@ -94,7 +94,6 @@ export const ServiceOrder = ({setSelectedService, selectedService}: any) => {
 	const handleOpenModal = () => {
 		setIsOpenModal(true);
 	}
-console.log({selectedService})
 	return <div style={{textAlign: "center", marginBlock: 100}}>
 		<h4>Xin mời lady order dịch vụ</h4>
 		<h1 style={{marginBottom: "40px"}}>NS 6 packs boy service 💪</h1>
