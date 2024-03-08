@@ -137,7 +137,7 @@ function App() {
 					</div>
 				</div>
 			</SmoothScroll>
-			{/*<ChatBox/>*/}
+			<ChatBox/>
 			<HeartBeat/>
 			<OrderedListModal open={openOrderList} onClose={() => setOpenOrderList(false)}/>
 		</div>
