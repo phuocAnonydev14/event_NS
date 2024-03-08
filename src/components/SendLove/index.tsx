@@ -48,7 +48,7 @@ const man = [
   {
     image: "/avatar/Nhân.jpg",
     name: "Nguyễn Anh Nhân",
-    vid: "/vid_love/Common.mp4",
+    vid: "/vid_love/Bo.mp4",
   },
   {
     image: "/avatar/LXNgoc.JPG",
