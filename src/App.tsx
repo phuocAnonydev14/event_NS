@@ -92,7 +92,7 @@ function App() {
 				content: payload.data['gcm.notification.content'],
 				time: Date.now()
 			}]))
-			handleUniqueArray()
+			// handleUniqueArray()
 			setAmountUnread((prev:any) => prev + 1)
 		});
 	}, [deviceId])

@@ -76,7 +76,8 @@ export default function ChatBox() {
 																												 onClick={() => setIsCollapsed(true)}/>}/>
 					</div>
 					<ScrollToBottom ref={contentRef} className={'chatContent'}>
-						{chatList?.map(({name, content, time}: any) => {
+						{chatList?.map(({name, content, time}: any,index: number) => {
+							if(content === chatList[index+1]?.content) return
 							return <div className={`chatItem ${name === currentAccount && 'right-dir'}`} key={time}>
 								<h4 style={{marginBottom: "5px"}}>{name} </h4>
 								<p className={'msg-content'} style={{
